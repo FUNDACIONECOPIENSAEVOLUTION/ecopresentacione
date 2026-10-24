@@ -1,0 +1,45 @@
+name: Importar imagenes del catalogo - paquete 01
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/importar-imagenes-p01.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar diez imagenes y comprobar formato
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/materiales/paquete-01
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-triturado-1.webp?v=1792884125' -o 'imagenes/materiales/paquete-01/t1.webp'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-t2.webp?v=1792884145' -o 'imagenes/materiales/paquete-01/t2.webp'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-t3.webp?v=1792884148' -o 'imagenes/materiales/paquete-01/t3.webp'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-t4.webp?v=1792884152' -o 'imagenes/materiales/paquete-01/t4.webp'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-an.webp?v=1792884155' -o 'imagenes/materiales/paquete-01/an.webp'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-ag.webp?v=1792884159' -o 'imagenes/materiales/paquete-01/ag.webp'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-af.webp?v=1792884163' -o 'imagenes/materiales/paquete-01/af.webp'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-pl.webp?v=1792884167' -o 'imagenes/materiales/paquete-01/pl.webp'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-mi.webp?v=1792884172' -o 'imagenes/materiales/paquete-01/mi.webp'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-bs.webp?v=1792884176' -o 'imagenes/materiales/paquete-01/bs.webp'
+          for f in imagenes/materiales/paquete-01/*.webp; do
+            test "$(head -c 4 "$f")" = "RIFF"
+            test "$(wc -c < "$f")" -gt 10000
+          done
+          test "$(find imagenes/materiales/paquete-01 -name '*.webp' | wc -l)" -eq 10
+      - name: Incorporar imagenes a main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/materiales/paquete-01/
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: almacenar paquete 01 de diez imagenes de materiales"
+            git push origin HEAD:main
+          fi
