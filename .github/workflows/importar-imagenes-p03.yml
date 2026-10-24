@@ -1,0 +1,42 @@
+name: Importar paquete 03 de aplicaciones constructivas
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/importar-imagenes-p03.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Importar, inspeccionar y contar fotografías del paquete 03
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/aplicaciones/paquete-03
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack03-calzadas-concreto.jpg?v=1792886145' -o 'imagenes/aplicaciones/paquete-03/calzadas-concreto.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack03-mezclas-asfalticas.jpg?v=1792886097' -o 'imagenes/aplicaciones/paquete-03/mezclas-asfalticas.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack03-andenes-peatonales.jpg?v=1792886105' -o 'imagenes/aplicaciones/paquete-03/andenes-peatonales.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack03-recuperacion-pavimento-rap.jpg?v=1792886113' -o 'imagenes/aplicaciones/paquete-03/recuperacion-pavimento-rap.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack03-puentes-y-tableros.jpg?v=1792886117' -o 'imagenes/aplicaciones/paquete-03/puentes-y-tableros.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack03-muros-contencion.jpg?v=1792886122' -o 'imagenes/aplicaciones/paquete-03/muros-contencion.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack03-box-culvert.jpg?v=1792886125' -o 'imagenes/aplicaciones/paquete-03/box-culvert.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack03-canales-concreto.jpg?v=1792886129' -o 'imagenes/aplicaciones/paquete-03/canales-concreto.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack03-disipadores-energia.jpg?v=1792886132' -o 'imagenes/aplicaciones/paquete-03/disipadores-energia.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack03-porticos-vigas-columnas.jpg?v=1792886136' -o 'imagenes/aplicaciones/paquete-03/porticos-vigas-columnas.jpg'
+          for f in imagenes/aplicaciones/paquete-03/*.jpg; do
+            file "$f"
+            file --mime-type "$f" | grep -Eq 'image/jpeg'
+            test "$(wc -c < "$f")" -gt 10000
+          done
+          test "$(find imagenes/aplicaciones/paquete-03 -name '*.jpg' | wc -l)" -eq 10
+      - name: Confirmar archivos en repositorio
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/aplicaciones/paquete-03/
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: diez imágenes de aplicaciones paquete 03"
+            git push origin HEAD:main
+          fi
