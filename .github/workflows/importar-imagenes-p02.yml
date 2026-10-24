@@ -1,0 +1,52 @@
+name: Importar imagenes reales del paquete 02
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/importar-imagenes-p02.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar fotografias reales y corregir extension del paquete uno
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/materiales/paquete-02
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack02-bg.jpg?v=1792884788' -o 'imagenes/materiales/paquete-02/bg.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack02-dr.jpg?v=1792884792' -o 'imagenes/materiales/paquete-02/dr.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack02-gr.jpg?v=1792884833' -o 'imagenes/materiales/paquete-02/gr.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack02-co-concreto.jpg?v=1792884754' -o 'imagenes/materiales/paquete-02/co.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack02-mo.jpg?v=1792884797' -o 'imagenes/materiales/paquete-02/mo.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack02-rc.jpg?v=1792884802' -o 'imagenes/materiales/paquete-02/rc.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack02-rf.jpg?v=1792884845' -o 'imagenes/materiales/paquete-02/rf.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack02-rs.jpg?v=1792884807' -o 'imagenes/materiales/paquete-02/rs.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack02-ra.jpg?v=1792884810' -o 'imagenes/materiales/paquete-02/ra.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack02-rm.jpg?v=1792884815' -o 'imagenes/materiales/paquete-02/rm.jpg'
+          for f in imagenes/materiales/paquete-02/*.jpg; do
+            file "$f"
+            file --mime-type "$f" | grep -Eq 'image/jpeg'
+            test "$(wc -c < "$f")" -gt 10000
+          done
+          test "$(find imagenes/materiales/paquete-02 -name '*.jpg' | wc -l)" -eq 10
+          # Los archivos anteriores se entregaron como JPEG aunque su ruta terminaba en webp.
+          for f in imagenes/materiales/paquete-01/*.webp; do
+            file --mime-type "$f" | grep -Eq 'image/jpeg'
+            git mv "$f" "${f%.webp}.jpg"
+          done
+          test "$(find imagenes/materiales/paquete-01 -name '*.jpg' | wc -l)" -eq 10
+      - name: Incorporar fotografias a main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/materiales/
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: paquete 02 fotografias CC/PD y ajuste de extensiones paquete 01"
+            git push origin HEAD:main
+          fi
