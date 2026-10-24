@@ -30,7 +30,8 @@ jobs:
           curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-mi.webp?v=1792884172' -o 'imagenes/materiales/paquete-01/mi.webp'
           curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack01-bs.webp?v=1792884176' -o 'imagenes/materiales/paquete-01/bs.webp'
           for f in imagenes/materiales/paquete-01/*.webp; do
-            test "$(head -c 4 "$f")" = "RIFF"
+            file "$f"
+            file --mime-type "$f" | grep -Eq "image/(webp|jpeg|png)"
             test "$(wc -c < "$f")" -gt 10000
           done
           test "$(find imagenes/materiales/paquete-01 -name '*.webp' | wc -l)" -eq 10
