@@ -1,0 +1,54 @@
+name: Incorporar veinte modelos nuevos - 17 y 18
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/importar-modelos-17-18.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar y validar imágenes de productos
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/modelos/paquete-17-acabados-viviendas imagenes/modelos/paquete-18-estructuras-hidraulica
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-17-acabados-viviendas-panete-interior.jpg?v=1792895338' -o 'imagenes/modelos/paquete-17-acabados-viviendas/panete-interior.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-17-acabados-viviendas-nivelacion-piso.jpg?v=1792895342' -o 'imagenes/modelos/paquete-17-acabados-viviendas/nivelacion-piso.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-17-acabados-viviendas-revestimiento-ceramico.jpg?v=1792895445' -o 'imagenes/modelos/paquete-17-acabados-viviendas/revestimiento-ceramico.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-17-acabados-viviendas-grout-celdas.jpg?v=1792895349' -o 'imagenes/modelos/paquete-17-acabados-viviendas/grout-celdas.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-17-acabados-viviendas-vivienda-minimalista.jpg?v=1792895353' -o 'imagenes/modelos/paquete-17-acabados-viviendas/vivienda-minimalista.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-17-acabados-viviendas-vivienda-montana.jpg?v=1792895358' -o 'imagenes/modelos/paquete-17-acabados-viviendas/vivienda-montana.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-17-acabados-viviendas-fachada-celosias.jpg?v=1792895362' -o 'imagenes/modelos/paquete-17-acabados-viviendas/fachada-celosias.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-17-acabados-viviendas-cabana-montana.jpg?v=1792895367' -o 'imagenes/modelos/paquete-17-acabados-viviendas/cabana-montana.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-17-acabados-viviendas-comunidad-modular.jpg?v=1792895371' -o 'imagenes/modelos/paquete-17-acabados-viviendas/comunidad-modular.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-17-acabados-viviendas-muro-verde-modular.jpg?v=1792895375' -o 'imagenes/modelos/paquete-17-acabados-viviendas/muro-verde-modular.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-18-estructuras-hidraulica-cimientos-mamposteria.jpg?v=1792895380' -o 'imagenes/modelos/paquete-18-estructuras-hidraulica/cimientos-mamposteria.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-18-estructuras-hidraulica-estructura-concreto.jpg?v=1792895385' -o 'imagenes/modelos/paquete-18-estructuras-hidraulica/estructura-concreto.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-18-estructuras-hidraulica-losa-cimentacion.jpg?v=1792895391' -o 'imagenes/modelos/paquete-18-estructuras-hidraulica/losa-cimentacion.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-18-estructuras-hidraulica-concreto-tuberias.jpg?v=1792895395' -o 'imagenes/modelos/paquete-18-estructuras-hidraulica/concreto-tuberias.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-18-estructuras-hidraulica-contencion-vial.jpg?v=1792895400' -o 'imagenes/modelos/paquete-18-estructuras-hidraulica/contencion-vial.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-18-estructuras-hidraulica-gaviones-arroyo.jpg?v=1792895406' -o 'imagenes/modelos/paquete-18-estructuras-hidraulica/gaviones-arroyo.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-18-estructuras-hidraulica-escollera-rio.jpg?v=1792895449' -o 'imagenes/modelos/paquete-18-estructuras-hidraulica/escollera-rio.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-18-estructuras-hidraulica-dren-frances-vivienda.jpg?v=1792895412' -o 'imagenes/modelos/paquete-18-estructuras-hidraulica/dren-frances-vivienda.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-18-estructuras-hidraulica-desague-urbano.jpg?v=1792895416' -o 'imagenes/modelos/paquete-18-estructuras-hidraulica/desague-urbano.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-18-estructuras-hidraulica-alcantarilla-concreto.jpg?v=1792895420' -o 'imagenes/modelos/paquete-18-estructuras-hidraulica/alcantarilla-concreto.jpg'
+          for name in 17-acabados-viviendas 18-estructuras-hidraulica; do
+            dir="imagenes/modelos/paquete-$name"
+            test "$(find "$dir" -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
+            for f in "$dir"/*.jpg; do
+              file --mime-type "$f" | grep -q 'image/jpeg'
+              test "$(wc -c < "$f")" -gt 30000
+            done
+          done
+      - name: Registrar imágenes en main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/modelos/paquete-17-acabados-viviendas imagenes/modelos/paquete-18-estructuras-hidraulica
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: agregar 20 modelos de acabados viviendas estructuras e hidráulica"
+            git push origin HEAD:main
+          fi
