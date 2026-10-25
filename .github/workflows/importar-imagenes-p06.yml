@@ -1,0 +1,46 @@
+name: Importar paquete 06 con galeria de macetas LED
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/importar-imagenes-p06.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar y validar imagenes originales del paquete 06
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/aplicaciones/paquete-06 imagenes/disenos/macetas-led
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-macetas-jardineras.jpg?v=1792887442' -o 'imagenes/aplicaciones/paquete-06/macetas-jardineras.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-bolardos-topes.jpg?v=1792887447' -o 'imagenes/aplicaciones/paquete-06/bolardos-topes.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-escaleras-prefabricadas.jpg?v=1792887452' -o 'imagenes/aplicaciones/paquete-06/escaleras-prefabricadas.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-tubos-concreto.jpg?v=1792887457' -o 'imagenes/aplicaciones/paquete-06/tubos-concreto.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-cunetas-sumideros.jpg?v=1792887461' -o 'imagenes/aplicaciones/paquete-06/cunetas-sumideros.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-obras-arte-drenaje.jpg?v=1792887465' -o 'imagenes/aplicaciones/paquete-06/obras-arte-drenaje.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-gaviones.jpg?v=1792887469' -o 'imagenes/aplicaciones/paquete-06/gaviones.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-enrocados-escolleras.jpg?v=1792887474' -o 'imagenes/aplicaciones/paquete-06/enrocados-escolleras.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-filtros-franceses.jpg?v=1792887479' -o 'imagenes/aplicaciones/paquete-06/filtros-franceses.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-rellenos-zanjas.jpg?v=1792887484' -o 'imagenes/aplicaciones/paquete-06/rellenos-zanjas.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-led-jardineras-lineales.jpg?v=1792887488' -o 'imagenes/disenos/macetas-led/led-jardineras-lineales.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-led-macetas-cilindricas.jpg?v=1792887493' -o 'imagenes/disenos/macetas-led/led-macetas-cilindricas.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-led-maceta-banca.jpg?v=1792887498' -o 'imagenes/disenos/macetas-led/led-maceta-banca.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack06-led-macetas-decorativas.jpg?v=1792887502' -o 'imagenes/disenos/macetas-led/led-macetas-decorativas.jpg'
+          for f in imagenes/aplicaciones/paquete-06/*.jpg imagenes/disenos/macetas-led/*.jpg; do
+            file --mime-type "$f" | grep -Eq "image/jpeg"
+            test "$(wc -c < "$f")" -gt 20000
+          done
+          test "$(find imagenes/aplicaciones/paquete-06 -name '*.jpg' | wc -l)" -eq 10
+          test "$(find imagenes/disenos/macetas-led -name '*.jpg' | wc -l)" -eq 4
+      - name: Guardar imagenes en el repositorio
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/aplicaciones/paquete-06 imagenes/disenos/macetas-led
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: paquete 06, diez aplicaciones y cuatro disenos de macetas con LED"
+            git push origin HEAD:main
+          fi
