@@ -23,3 +23,14 @@ Se añadieron cuatro propuestas de diseño, para un total de ocho imágenes:
 - `led-macetas-geometricas.jpg`: macetas de formas geométricas con luces integradas.
 
 Son conceptos visuales adicionales generados con IA, no fotografías de producción real. La identidad oficial se aplica en las tarjetas por superposición del logotipo del repositorio.
+
+## Ampliación recuperada en la auditoría de imágenes
+
+Cuatro imágenes adicionales recuperadas del historial y vinculadas a la colección de iluminación:
+
+- `led-jardin-azotea.jpg`: jardín en terraza con macetas iluminadas.
+- `led-plaza-sostenible.jpg`: plaza verde de referencia con iluminación integrada.
+- `led-banco-iluminado.jpg`: banco de espacio público con luminarias LED.
+- `led-jardinera-geometrica.jpg`: jardinera futurista de geometría angular y luces cálidas.
+
+Con ellas la colección suma **12 diseños visibles** en la galería de macetas LED y en la ficha de «Macetas y jardineras». Son diseños digitales conceptuales que no acreditan fabricación ni instalaciones eléctricas verificadas.
