@@ -1,6 +1,6 @@
 # Plan de ampliación visual y portafolio Ecopiensa Evolution
 
-**Estado de sitio:** v1.12.0 · 24/oct/2026
+**Estado de sitio:** v1.13.0 · 24/oct/2026
 
 ## Organización conceptual de la cadena
 
@@ -16,8 +16,8 @@
 
 - 20 materiales con imagen individual.
 - 51 aplicaciones con imagen individual.
-- 8 diseños de macetas con LED.
-- **Paquetes 09–12:** 40 modelos disponibles en galería filtrable (10 por paquete), con variantes enlazadas a las aplicaciones.
+- 12 diseños de macetas y mobiliario con LED.
+- **Paquetes 09–12:** 46 modelos disponibles en galería filtrable (10 por paquete), con variantes enlazadas a las aplicaciones.
 - Organigrama original visible en página + mapa interactivo con flechas y filtros por fuente.
 - Logotipo oficial aportado por el usuario en `identidad/logo-fundacion-oficial.png`.
 
@@ -29,7 +29,7 @@
 | 11 | Drenajes y contención | tubos, box culvert, canales, filtros, cunetas, gaviones, escolleras | **Completado: 10 modelos** |
 | 12 | Vías e infraestructura | vías, aceras, puentes, terraplenes, bases, pavimentos y taludes | **Completado: 10 modelos** |
 | 13 | Morteros y acabados | grouts, morteros de pega, repellos, nivelaciones, pegantes, baldosas y texturas | Pendiente |
-| 14 | Viviendas y sistemas modulares | paneles, muros, bloques, fachadas, techos y ejemplos de ensamble | Pendiente |
+| 14 | Viviendas y sistemas modulares | paneles, muros, bloques, fachadas, techos y ejemplos de ensamble | **3 modelos recuperados; en ampliación** |
 | 15 | Diagramas y fichas comparativas | cortes constructivos, granulometrías, escala de tamaño, mezclas y derivación de procesos | Pendiente |
 | Final | PDF corporativo | fichas por producto, portada, índice, identidad, fotografía, aplicación y fuentes | Al finalizar paquetes |
 
@@ -49,3 +49,15 @@
 - **Pack 12:** `imagenes/modelos/paquete-12-vias/`, 10 JPEG verificados en GitHub.
 - **Página:** versión 1.12.0, filtros por paquete y galerías relacionadas dentro de las fichas de aplicación.
 - **Siguiente ampliación:** paquete 13 de morteros y acabados, seguido por viviendas y fichas de cortes. Al completar los modelos se elaborará el PDF institucional secuencial.
+
+### Auditoría visual del historial · Versión 1.13.0
+
+- **20 materiales** con fotografía o referencia individual.
+- **51 aplicaciones** con fotografía o ilustración específica.
+- **46 modelos ampliados** distribuidos entre paquetes 09 y 14 (los paquetes 13 y 14 tienen tres imágenes cada uno).
+- **12 diseños iluminados**: incluye cuatro recuperados del historial.
+- **Total catálogo: 129 imágenes distintas**, además de logo y organigramas institucionales.
+- **Recuperaciones:** `imagenes/modelos/paquete-13-morteros/` (3), `imagenes/modelos/paquete-14-viviendas/` (3), `imagenes/disenos/macetas-led/` (4 adicionales).
+- **Inspección:** `galeria-completa.html` permite recorrer las 129 imágenes con búsqueda, filtros y visor secuencial.
+- **Integridad:** `.github/workflows/deploy.yml` valida la existencia física de las 129 rutas declaradas antes de publicar.
+- Los bocetos preliminares y capturas de interfaz no forman parte del catálogo de productos: no deben confundirse con las piezas definitivas.
