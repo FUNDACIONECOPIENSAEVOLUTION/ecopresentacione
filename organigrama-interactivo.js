@@ -1,4 +1,4 @@
-/* Atlas Ecopiensa · mapa base → derivado → aplicación y modelos (v1.9.0) */
+/* Atlas Ecopiensa · mapa base → derivado → aplicación y modelos (v1.12.0) */
 'use strict';
 const atlasModels = [
   {file:'bloque-muro',name:'Bloque de muro',group:'Bloques de cemento',app:'Bloques huecos de cemento',desc:'Unidad de concreto para pared'},
@@ -12,11 +12,46 @@ const atlasModels = [
   {file:'fabricacion-02',name:'Fabricación · etapa 2',group:'Procesos',app:'Bloques huecos de cemento',desc:'Otra vista del proceso de producción'},
   {file:'vivienda-ceb',name:'Vivienda con bloques de tierra',group:'Sistemas constructivos',app:'Ladrillos no cocidos / bloques',desc:'Aplicación de bloque comprimido'}
 ];
+atlasModels.forEach(m=>{m.pack=9;});
+atlasModels.push(
+  {pack:10,file:'banca-urbana',name:'Banca urbana con apoyos de concreto',group:'Mobiliario',app:'Bancas urbanas',desc:'Banca con estructura de concreto y acabado verde'},
+  {pack:10,file:'bolardo',name:'Bolardo cilíndrico',group:'Mobiliario',app:'Bolardos y topes',desc:'Bolardo para delimitar circulación peatonal'},
+  {pack:10,file:'bordillo',name:'Bordillo modular',group:'Mobiliario',app:'Bordillos y sardineles',desc:'Bordillo prefabricado de perfil continuo'},
+  {pack:10,file:'jardinera-lineal',name:'Jardinera rectangular',group:'Mobiliario',app:'Macetas y jardineras',desc:'Jardinera de gran formato para espacio público'},
+  {pack:10,file:'jardinera-cilindrica',name:'Maceta cilíndrica',group:'Mobiliario',app:'Macetas y jardineras',desc:'Maceta cilíndrica para vegetación ornamental'},
+  {pack:10,file:'banca-jardinera',name:'Banca con jardinera integrada',group:'Mobiliario',app:'Bancas urbanas',desc:'Módulo combinado de asiento y jardinera'},
+  {pack:10,file:'barrera-vial',name:'Barrera de concreto',group:'Mobiliario',app:'Barrera de protección y separadores',desc:'Barrera prefabricada para separación de flujos'},
+  {pack:10,file:'estacionamiento-tope',name:'Tope de estacionamiento',group:'Mobiliario',app:'Bolardos y topes',desc:'Elemento modular de estacionamiento'},
+  {pack:10,file:'mesa-picnic',name:'Mesa con bancas para parque',group:'Mobiliario',app:'Bancas urbanas',desc:'Conjunto de mesa y asientos para espacio público'},
+  {pack:10,file:'adoquin-modular',name:'Adoquín modular',group:'Mobiliario',app:'Adoquines',desc:'Piezas articuladas con acabado verde'},
+  {pack:11,file:'tubo-concreto',name:'Tubería de concreto',group:'Drenajes',app:'Tubos de concreto',desc:'Tubo prefabricado de sección circular'},
+  {pack:11,file:'box-culvert',name:'Box culvert prefabricado',group:'Drenajes',app:'Box culvert',desc:'Módulo de conducción con sección rectangular'},
+  {pack:11,file:'canal-prefabricado',name:'Canal prefabricado en U',group:'Drenajes',app:'Canales en concreto',desc:'Canal de conducción abierto'},
+  {pack:11,file:'cuneta-concreto',name:'Cuneta de concreto',group:'Drenajes',app:'Cunetas y sumideros',desc:'Perfil longitudinal para escorrentía'},
+  {pack:11,file:'sumidero-modular',name:'Sumidero con rejilla',group:'Drenajes',app:'Cunetas y sumideros',desc:'Caja de captación pluvial con rejilla'},
+  {pack:11,file:'canal-lineal',name:'Canal de drenaje lineal',group:'Drenajes',app:'Cunetas y sumideros',desc:'Rejilla continua de drenaje superficial'},
+  {pack:11,file:'gabion-modular',name:'Muro de gaviones',group:'Drenajes',app:'Gaviones',desc:'Canastillas metálicas rellenas de piedra'},
+  {pack:11,file:'proteccion-ribera',name:'Bloque para protección de ribera',group:'Drenajes',app:'Jarillones y protección de riberas',desc:'Elemento de revestimiento fluvial'},
+  {pack:11,file:'disipador-energia',name:'Disipador hidráulico',group:'Drenajes',app:'Disipadores de energía',desc:'Escalonamiento para moderar energía de escorrentía'},
+  {pack:11,file:'dren-frances',name:'Dren francés granular',group:'Drenajes',app:'Filtros franceses',desc:'Sistema de grava, geotextil y tubo perforado'},
+  {pack:12,file:'carretera-pavimento',name:'Carretera pavimentada',group:'Vías',app:'Calzadas de concreto',desc:'Vista general de calzada en zona montañosa'},
+  {pack:12,file:'via-rural',name:'Vía rural de montaña',group:'Vías',app:'Afirmado rural',desc:'Referente de corredor rural; el tipo de capa superficial depende del proyecto'},
+  {pack:12,file:'via-montana',name:'Infraestructura vial de montaña',group:'Vías',app:'Mezclas asfálticas',desc:'Calzada de referencia con alineamiento montañoso'},
+  {pack:12,file:'anden-peatonal',name:'Andén urbano arbolado',group:'Vías',app:'Andenes peatonales',desc:'Pavimento y zonas peatonales accesibles'},
+  {pack:12,file:'pavimento-permeable',name:'Pavimento permeable de plaza',group:'Vías',app:'Pavimentos permeables',desc:'Pavimento para manejo superficial de agua'},
+  {pack:12,file:'puente-principal',name:'Puente sobre río montañoso',group:'Vías',app:'Puentes y tableros',desc:'Puente de concreto con tablero elevado'},
+  {pack:12,file:'puente-rural',name:'Puente rural de concreto',group:'Vías',app:'Puentes y tableros',desc:'Paso sobre cauce rural'},
+  {pack:12,file:'base-terraplen',name:'Terraplén vial compactado',group:'Vías',app:'Terraplenes y plataformas',desc:'Compactación por capas sobre explanación'},
+  {pack:12,file:'base-compactacion',name:'Compactación de base granular',group:'Vías',app:'Bases de carreteras',desc:'Preparación de capas de apoyo vial'},
+  {pack:12,file:'estabilizacion-talud',name:'Estabilización de talud vial',group:'Vías',app:'Estabilización de taludes',desc:'Terrazas y protección de ladera vial'}
+);
+const atlasPackNames={all:'Todos',9:'Bloques y ladrillos',10:'Mobiliario',11:'Drenajes',12:'Vías e infraestructura'};
+let atlasSelectedPack='all';
 const atlasRoadmap = [
   {code:'09',name:'Bloques y ladrillos',desc:'Bloques huecos, encajables, unidades no cocidas, celosías y fabricación',state:'10 modelos incorporados'},
-  {code:'10',name:'Mobiliario y espacio público',desc:'Bancas, bolardos, jardineras, bordillos, separadores y piezas ornamentales',state:'Próximo paquete'},
-  {code:'11',name:'Drenaje y contención',desc:'Tubos, box culvert, filtros, canales, gaviones, escolleras y sumideros',state:'Por ampliar'},
-  {code:'12',name:'Vías e infraestructura',desc:'Adoquines, pavimentos, ciclovías, puentes, losetas y bases',state:'Por ampliar'},
+  {code:'10',name:'Mobiliario y espacio público',desc:'Bancas, bolardos, jardineras, bordillos, separadores y piezas ornamentales',state:'10 modelos incorporados'},
+  {code:'11',name:'Drenaje y contención',desc:'Tubos, box culvert, filtros, canales, gaviones, escolleras y sumideros',state:'10 modelos incorporados'},
+  {code:'12',name:'Vías e infraestructura',desc:'Pavimentos, vías de montaña, andenes, puentes, plataformas y bases',state:'10 modelos incorporados'},
   {code:'13',name:'Morteros y acabados',desc:'Morteros, grout, repellos, pegantes, nivelaciones y concretos',state:'Por ampliar'},
   {code:'14',name:'Vivienda y sistemas modulares',desc:'Muros, paneles, fachadas, unidades y secuencias constructivas',state:'Por ampliar'}
 ];
@@ -30,7 +65,11 @@ const atlasDerived = {
   rio: ['mi','bs','bg','dr','gr','co','mo'],
   rcd: ['rs','mi','bs','bg','dr','co','mo']
 };
-function atlasModelPath(m){return 'imagenes/modelos/paquete-09-bloques/'+m.file+'.jpg';}
+function atlasModelPath(m){
+ const names={9:'bloques',10:'mobiliario',11:'drenajes',12:'vias'};
+ const pack=m.pack||9;
+ return 'imagenes/modelos/paquete-'+String(pack).padStart(2,'0')+'-'+names[pack]+'/'+m.file+'.jpg';
+}
 function atlasTreeTitle(o){return o==='rio'?'Canto rodado y material de río':'Residuos minerales de construcción (RCD)';}
 function atlasMaterialButton(id){
   const m=materials.find(v=>v.id===id);
@@ -72,8 +111,13 @@ window.setAtlasTreeMaterial=function(id){
 function renderAtlasModels(){
   const area=byId('modelosGrid');
   if(!area)return;
-  area.innerHTML=atlasModels.map((m,i)=>'<button class="model-gallery-item" type="button" onclick="openAtlasModel('+i+')"><img src="'+atlasModelPath(m)+'" loading="lazy" alt="'+esc(m.name)+'"><strong>'+esc(m.name)+'</strong><small>'+esc(m.group)+'</small></button>').join('');
+  const tabs=byId('modelosFiltros');
+  if(tabs)tabs.innerHTML=Object.entries(atlasPackNames).map(([id,label])=>'<button type="button" class="'+(String(atlasSelectedPack)===id?'active':'')+'" aria-pressed="'+(String(atlasSelectedPack)===id)+'" onclick="filterAtlasModels(\''+id+'\')">'+(id==='all'?'Todos ('+atlasModels.length+')':'Paquete '+String(id).padStart(2,'0')+' · '+label)+'</button>').join('');
+  const entries=atlasModels.map((m,i)=>({m,i})).filter(x=>atlasSelectedPack==='all'||String(x.m.pack)===String(atlasSelectedPack));
+  area.innerHTML=entries.map(({m,i})=>'<button class="model-gallery-item" type="button" onclick="openAtlasModel('+i+')"><img src="'+atlasModelPath(m)+'" loading="lazy" alt="'+esc(m.name)+'"><strong>'+esc(m.name)+'</strong><small>Paquete '+String(m.pack).padStart(2,'0')+' · '+esc(m.group)+'</small></button>').join('');
+  const count=byId('modelosCount');if(count)count.textContent=entries.length+' modelos';
 }
+window.filterAtlasModels=function(pack){atlasSelectedPack=pack==='all'?'all':String(pack);renderAtlasModels();};
 function atlasModelsForApp(app){
   return atlasModels.map((m,i)=>({m,i})).filter(x=>x.m.app===app);
 }
@@ -103,9 +147,14 @@ const atlasOriginalOpenApp=window.openApp;
 window.openApp=function(id){
   atlasOriginalOpenApp(id);
   const a=apps.find(x=>x.id===id);
-  if(!a||a.n==='Macetas y jardineras')return;
+  if(!a)return;
   const other=atlasModelsForApp(a.n);
-  if(other.length)paintAtlasModelChoices(other);
+  if(!other.length)return;
+  if(a.n==='Macetas y jardineras'){
+    const box=byId('modalModels');
+    box.style.display='block';
+    box.innerHTML+='<h3>Otras variantes de macetas y jardineras</h3><div class="model-grid">'+other.map(({m,i})=>'<button class="model-chip" type="button" onclick="showAtlasModel('+i+')"><img src="'+atlasModelPath(m)+'" loading="lazy" alt=""><span>'+esc(m.name)+'</span></button>').join('')+'</div>';
+  }else{paintAtlasModelChoices(other);}
 };
 function renderAtlasPlan(){
   byId('roadmapGrid').innerHTML=atlasRoadmap.map(r=>'<article class="roadmap-card"><span class="roadmap-index">PAQUETE '+r.code+'</span><h3>'+r.name+'</h3><p>'+r.desc+'</p><div class="roadmap-count">'+r.state+'</div></article>').join('');
