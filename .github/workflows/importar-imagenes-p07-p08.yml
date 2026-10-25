@@ -1,0 +1,48 @@
+name: Importar paquete 07, paquete 08 y modelos LED
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/importar-imagenes-p07-p08.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar y verificar los ultimos materiales visuales
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/aplicaciones/paquete-07 imagenes/aplicaciones/paquete-08 imagenes/disenos/macetas-led
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-estabilizacion-taludes.jpg?v=1792888395' -o 'imagenes/aplicaciones/paquete-07/estabilizacion-taludes.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-jarillones-riberas.jpg?v=1792888400' -o 'imagenes/aplicaciones/paquete-07/jarillones-riberas.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-terraplenes-plataformas.jpg?v=1792888406' -o 'imagenes/aplicaciones/paquete-07/terraplenes-plataformas.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-concreto-limpieza.jpg?v=1792888410' -o 'imagenes/aplicaciones/paquete-07/concreto-limpieza.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-concreto-pobre.jpg?v=1792888414' -o 'imagenes/aplicaciones/paquete-07/concreto-pobre.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-pavimentos-permeables.jpg?v=1792888419' -o 'imagenes/aplicaciones/paquete-07/pavimentos-permeables.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-relleno-fluido.jpg?v=1792888424' -o 'imagenes/aplicaciones/paquete-07/relleno-fluido.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-prefabricados-arquitectonicos.jpg?v=1792888428' -o 'imagenes/aplicaciones/paquete-07/prefabricados-arquitectonicos.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-paisajismo.jpg?v=1792888433' -o 'imagenes/aplicaciones/paquete-07/paisajismo.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-barreras-separadores.jpg?v=1792888437' -o 'imagenes/aplicaciones/paquete-07/barreras-separadores.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-led-terraza-lineal.jpg?v=1792888441' -o 'imagenes/disenos/macetas-led/led-terraza-lineal.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-led-cilindros-terraza.jpg?v=1792888445' -o 'imagenes/disenos/macetas-led/led-cilindros-terraza.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-led-banca-jardin.jpg?v=1792888448' -o 'imagenes/disenos/macetas-led/led-banca-jardin.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack07-led-macetas-geometricas.jpg?v=1792888453' -o 'imagenes/disenos/macetas-led/led-macetas-geometricas.jpg'
+          curl --fail --location --silent --show-error --retry 3 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack08-drenaje-bajo-pisos.jpg?v=1792888473' -o imagenes/aplicaciones/paquete-08/drenaje-bajo-pisos.jpg
+          for f in imagenes/aplicaciones/paquete-07/*.jpg imagenes/aplicaciones/paquete-08/*.jpg imagenes/disenos/macetas-led/*.jpg; do
+            file --mime-type "$f" | grep -Eq "image/jpeg"
+            test "$(wc -c < "$f")" -gt 15000
+          done
+          test "$(find imagenes/aplicaciones/paquete-07 -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
+          test "$(find imagenes/aplicaciones/paquete-08 -maxdepth 1 -name '*.jpg' | wc -l)" -eq 1
+          test "$(find imagenes/disenos/macetas-led -maxdepth 1 -name '*.jpg' | wc -l)" -eq 8
+      - name: Guardar imagenes en GitHub
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/aplicaciones/paquete-07 imagenes/aplicaciones/paquete-08 imagenes/disenos/macetas-led
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: paquete 07 y 08 completos, ocho variantes de macetas LED"
+            git push origin HEAD:main
+          fi
