@@ -1,0 +1,54 @@
+name: Importar detalles y paisajismo (20 fotos)
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/importar-modelos-15-16.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar archivos y validar imágenes
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/modelos/paquete-15-detalles imagenes/modelos/paquete-16-paisajismo
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-15-detalles-pavimento-permeable.jpg?v=1792893840' -o 'imagenes/modelos/paquete-15-detalles/pavimento-permeable.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-15-detalles-dren-frances-corte.jpg?v=1792893843' -o 'imagenes/modelos/paquete-15-detalles/dren-frances-corte.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-15-detalles-muro-mamposteria-corte.jpg?v=1792893849' -o 'imagenes/modelos/paquete-15-detalles/muro-mamposteria-corte.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-15-detalles-box-culvert-corte.jpg?v=1792893854' -o 'imagenes/modelos/paquete-15-detalles/box-culvert-corte.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-15-detalles-gaviones-corte.jpg?v=1792893858' -o 'imagenes/modelos/paquete-15-detalles/gaviones-corte.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-15-detalles-granulometria-guia.jpg?v=1792893862' -o 'imagenes/modelos/paquete-15-detalles/granulometria-guia.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-15-detalles-carretera-corte.jpg?v=1792893867' -o 'imagenes/modelos/paquete-15-detalles/carretera-corte.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-15-detalles-drenaje-pluvial.jpg?v=1792893872' -o 'imagenes/modelos/paquete-15-detalles/drenaje-pluvial.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-15-detalles-fachada-celosias-corte.jpg?v=1792893877' -o 'imagenes/modelos/paquete-15-detalles/fachada-celosias-corte.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-15-detalles-jardinera-banca-corte.jpg?v=1792893882' -o 'imagenes/modelos/paquete-15-detalles/jardinera-banca-corte.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-16-paisajismo-patio-nocturno.jpg?v=1792893886' -o 'imagenes/modelos/paquete-16-paisajismo/patio-nocturno.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-16-paisajismo-plaza-bolardos.jpg?v=1792893891' -o 'imagenes/modelos/paquete-16-paisajismo/plaza-bolardos.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-16-paisajismo-jardineras-terraza.jpg?v=1792893896' -o 'imagenes/modelos/paquete-16-paisajismo/jardineras-terraza.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-16-paisajismo-jardineras-geometricas.jpg?v=1792893901' -o 'imagenes/modelos/paquete-16-paisajismo/jardineras-geometricas.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-16-paisajismo-escalera-concreto.jpg?v=1792893906' -o 'imagenes/modelos/paquete-16-paisajismo/escalera-concreto.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-16-paisajismo-macetas-luminosas.jpg?v=1792893911' -o 'imagenes/modelos/paquete-16-paisajismo/macetas-luminosas.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-16-paisajismo-acceso-paisajismo.jpg?v=1792893917' -o 'imagenes/modelos/paquete-16-paisajismo/acceso-paisajismo.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-16-paisajismo-patio-modular.jpg?v=1792893921' -o 'imagenes/modelos/paquete-16-paisajismo/patio-modular.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-16-paisajismo-elementos-arquitectonicos.jpg?v=1792893926' -o 'imagenes/modelos/paquete-16-paisajismo/elementos-arquitectonicos.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-16-paisajismo-plaza-jardinera-banca.jpg?v=1792893931' -o 'imagenes/modelos/paquete-16-paisajismo/plaza-jardinera-banca.jpg'
+          for g in 15-detalles 16-paisajismo; do
+            dir="imagenes/modelos/paquete-$g"
+            test "$(find "$dir" -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
+            for f in "$dir"/*.jpg; do
+              file --mime-type "$f" | grep -q 'image/jpeg'
+              test "$(wc -c < "$f")" -gt 40000
+            done
+          done
+      - name: Incorporar imágenes al repositorio
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/modelos/paquete-15-detalles imagenes/modelos/paquete-16-paisajismo
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: subir 10 detalles técnicos y 10 variantes paisajísticas"
+            git push origin HEAD:main
+          fi
