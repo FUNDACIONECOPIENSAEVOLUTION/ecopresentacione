@@ -6,6 +6,12 @@ on:
       - main
     paths:
       - 'index.html'
+      - 'identidad-corporativa.css'
+      - 'organigrama-interactivo.js'
+      - 'PLAN-AMPLIACION-PRODUCTOS.md'
+      - 'imagenes/modelos/**'
+      - 'imagenes/organigramas/**'
+      - 'identidad/**'
       - '*.png'
       - 'README.md'
       - '.github/workflows/deploy.yml'
@@ -33,6 +39,30 @@ jobs:
         run: |
           test -s index.html
           node -e "const s=require('fs').readFileSync('index.html','utf8');const js=s.match(/<script>([\s\S]*?)<\/script>/);if(!js)process.exit(1);new Function(js[1]);"
+      - name: Verificar organigrama, galería y referencias
+        run: |
+          node --check organigrama-interactivo.js
+          test -s identidad/logo-fundacion-oficial.png
+          test -s imagenes/organigramas/organigrama-base-subproductos.jpg
+          test -s imagenes/organigramas/ruta-paquetes-modelos.jpg
+          test "$(find imagenes/modelos/paquete-09-bloques -name '*.jpg' | wc -l)" -eq 10
+          node - <<'NODE'
+          const fs=require('fs');
+          const h=fs.readFileSync('index.html','utf8');
+          const script=fs.readFileSync('organigrama-interactivo.js','utf8');
+          for(const q of ['id="organigrama"','id="treeRoot"','id="treeProducts"','id="treeUses"','id="modelosGrid"','id="roadmapGrid"'])if(!h.includes(q))throw Error('Elemento faltante '+q);
+          const files=[...new Set([...script.matchAll(/file:'([^']+)'/g)].map(m=>m[1]))];
+          if(files.length!==10)throw Error('Deben existir diez modelos; hay '+files.length);
+          for(const n of files)if(!fs.existsSync('imagenes/modelos/paquete-09-bloques/'+n+'.jpg'))throw Error('Modelo sin imagen '+n);
+          const catalog=h.slice(h.indexOf('const appPhotos={'),h.indexOf('function appVisual(a)'));
+          const apps=[...catalog.matchAll(/^'([^']+)':\\{file:'([^']+)'(?:,pack:(\\d+))?/gm)];
+          if(apps.length!==51)throw Error('Esperadas 51 aplicaciones con imagen, hay '+apps.length);
+          for(const [,label,file,pack] of apps){
+            const path='imagenes/aplicaciones/paquete-'+String(pack||3).padStart(2,'0')+'/'+file+'.jpg';
+            if(!fs.existsSync(path))throw Error(label+': '+path);
+          }
+          console.log('OK: 51 aplicaciones con imagen, diez modelos, identidad y organigrama');
+          NODE
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
       - name: Empaquetar sitio
