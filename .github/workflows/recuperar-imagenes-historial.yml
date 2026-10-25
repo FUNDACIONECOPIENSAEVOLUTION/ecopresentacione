@@ -1,0 +1,43 @@
+name: Recuperar imagenes del historial - auditoria
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/recuperar-imagenes-historial.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  recuperar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Importar diez imagenes faltantes y comprobarlas
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/disenos/macetas-led imagenes/modelos/paquete-13-morteros imagenes/modelos/paquete-14-viviendas
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-auditoria-led-jardin-azotea.jpg?v=1792892798' -o 'imagenes/disenos/macetas-led/led-jardin-azotea.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-auditoria-led-plaza-sostenible.jpg?v=1792892804' -o 'imagenes/disenos/macetas-led/led-plaza-sostenible.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-auditoria-led-banco-iluminado.jpg?v=1792892809' -o 'imagenes/disenos/macetas-led/led-banco-iluminado.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-auditoria-led-jardinera-geometrica.jpg?v=1792892814' -o 'imagenes/disenos/macetas-led/led-jardinera-geometrica.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-auditoria-grout-mamposteria.jpg?v=1792892818' -o 'imagenes/modelos/paquete-13-morteros/grout-mamposteria.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-auditoria-estuco-pared.jpg?v=1792892822' -o 'imagenes/modelos/paquete-13-morteros/estuco-pared.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-auditoria-adhesivo-baldosas.jpg?v=1792892825' -o 'imagenes/modelos/paquete-13-morteros/adhesivo-baldosas.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-auditoria-casa-sostenible.jpg?v=1792892830' -o 'imagenes/modelos/paquete-14-viviendas/casa-sostenible.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-auditoria-fachada-celosias.jpg?v=1792892834' -o 'imagenes/modelos/paquete-14-viviendas/fachada-celosias.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-auditoria-cabana-modular.jpg?v=1792892838' -o 'imagenes/modelos/paquete-14-viviendas/cabana-modular.jpg'
+          for f in imagenes/modelos/paquete-13-morteros/*.jpg imagenes/modelos/paquete-14-viviendas/*.jpg imagenes/disenos/macetas-led/*.jpg; do
+            file --mime-type "$f" | grep -q 'image/jpeg'
+            test "$(wc -c < "$f")" -gt 50000
+          done
+          test "$(find imagenes/modelos/paquete-13-morteros -name '*.jpg' | wc -l)" -eq 3
+          test "$(find imagenes/modelos/paquete-14-viviendas -name '*.jpg' | wc -l)" -eq 3
+          test "$(find imagenes/disenos/macetas-led -name '*.jpg' | wc -l)" -eq 12
+      - name: Incorporar imagenes a GitHub
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/disenos/macetas-led imagenes/modelos/paquete-13-morteros imagenes/modelos/paquete-14-viviendas
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: recuperar diez imagenes de iluminar, acabados y viviendas"
+            git push origin HEAD:main
+          fi
