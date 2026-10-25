@@ -189,7 +189,7 @@ window.openApp=function(id){
   }else{paintAtlasModelChoices(other);}
 };
 function renderAtlasPlan(){
-  byId('roadmapGrid').innerHTML=atlasRoadmap.map(r=>'<article class="roadmap-card"><span class="roadmap-index">COLECCIÓN · '+r.code+'</span><h3>'+r.name+'</h3><p>'+r.desc+'</p><div class="roadmap-count">'+r.state+'</div></article>').join('');
+  byId('roadmapGrid').innerHTML=atlasRoadmap.map(r=>'<article class="roadmap-card"><span class="roadmap-index">FAMILIA DE PRODUCTOS</span><h3>'+r.name+'</h3><p>'+r.desc+'</p><div class="roadmap-count">'+r.state+'</div></article>').join('');
 }
 if(document.getElementById('treeRoot')){
   renderAtlasTree();
