@@ -76,3 +76,14 @@ section{scroll-margin-top:26px}
 @media(max-width:1120px){.tree-columns{grid-template-columns:1fr 1fr}.tree-level:nth-child(2):after{display:none}.models-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:760px){.nav{padding:10px;border-radius:14px}.navlinks{gap:0}.navlinks a{padding:6px 8px;font-size:11px}.brand img{width:46px;height:55px}.tree-columns{grid-template-columns:1fr}.tree-level:after{display:none!important}.tree-products,.tree-uses{max-height:320px}.models-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.roadmap{grid-template-columns:1fr}.roadmap-illustration{grid-template-columns:1fr}.diagram-shell{padding:10px}.diagram-visual img{max-height:none}}
 @media print{.tree-products,.tree-uses{max-height:none}.navlinks,.tree-filters,.model-gallery-item,.roadmap-illustration{break-inside:avoid}.diagram-visual img{max-height:800px}}
+
+/* Paquetes de modelos 09–12 · galería filtrable */
+.model-tabs{margin:0 0 17px;align-items:center}
+.model-tabs button{background:#fff;border:1px solid #bedcc6;color:#215c40;font-size:12px;border-radius:999px;padding:10px 16px;white-space:nowrap}
+.model-tabs button.active{background:#087645;color:#fff;border-color:#087645;box-shadow:0 6px 16px #09562c22}
+.model-tabs button:hover:not(.active){background:#e5f4e8}
+.models-grid .model-gallery-item{display:flex;flex-direction:column;min-width:0}
+.models-grid .model-gallery-item img{width:100%;aspect-ratio:1.35;object-fit:contain;background:#eff4ef}
+.models-grid .model-gallery-item strong{font-size:12px;line-height:1.32}
+.models-grid .model-gallery-item small{margin-top:auto}
+@media(max-width:760px){.model-tabs{gap:7px}.model-tabs button{font-size:11px;padding:9px 11px}}
