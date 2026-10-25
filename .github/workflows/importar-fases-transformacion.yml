@@ -1,0 +1,36 @@
+name: Incorporar imágenes de las cinco fases de transformación
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/importar-fases-transformacion.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar y comprobar las cinco imágenes del proceso
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/procesos-transformacion
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-flujo-fase-01-origen-2026.jpg?v=1792950296' -o 'imagenes/procesos-transformacion/fase-01-origen.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-flujo-fase-02-preclasificacion-2026.jpg?v=1792950300' -o 'imagenes/procesos-transformacion/fase-02-preclasificacion.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-flujo-fase-03-trituracion-2026.jpg?v=1792950303' -o 'imagenes/procesos-transformacion/fase-03-trituracion.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-flujo-fase-04-lavado-zarandeo-2026.jpg?v=1792950308' -o 'imagenes/procesos-transformacion/fase-04-lavado-zarandeo.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-flujo-fase-05-productos-obras-2026.jpg?v=1792950313' -o 'imagenes/procesos-transformacion/fase-05-productos-obras.jpg'
+          for f in imagenes/procesos-transformacion/*.jpg; do
+            file --mime-type "$f" | grep -q 'image/jpeg'
+            test "$(wc -c < "$f")" -gt 100000
+          done
+          test "$(find imagenes/procesos-transformacion -maxdepth 1 -name '*.jpg' | wc -l)" -eq 5
+      - name: Incorporar imágenes en rama principal
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/procesos-transformacion
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: cinco imágenes para las fases de transformación del material"
+            git push origin HEAD:main
+          fi
