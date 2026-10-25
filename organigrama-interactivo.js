@@ -75,6 +75,28 @@ atlasModels.push(
  {pack:16,file:'elementos-arquitectonicos',name:'Prefabricados arquitectónicos decorativos',group:'Paisajismo y diseño',app:'Prefabricados arquitectónicos',desc:'Elementos arquitectónicos y celosías de concreto'},
  {pack:16,file:'plaza-jardinera-banca',name:'Plaza con jardinera y banca',group:'Paisajismo y diseño',app:'Bancas urbanas',desc:'Banca y jardineras con iluminación integrada'}
 );
+atlasModels.push(
+ {pack:17,file:'panete-interior',name:'Aplicación de pañete interior',group:'Morteros y acabados',app:'Repellos y pañetes',desc:'Proceso de alisado de revestimiento cementicio',family:'morteros'},
+ {pack:17,file:'nivelacion-piso',name:'Nivelación de piso con mortero',group:'Morteros y acabados',app:'Morteros de nivelación',desc:'Extendido y nivelación de una capa de piso',family:'morteros'},
+ {pack:17,file:'revestimiento-ceramico',name:'Colocación de revestimiento cerámico',group:'Morteros y acabados',app:'Pegantes cementicios',desc:'Colocación de baldosas sobre adhesivo cementicio',family:'morteros'},
+ {pack:17,file:'grout-celdas',name:'Relleno de celdas en muro reforzado',group:'Morteros y acabados',app:'Muros de mampostería reforzada',desc:'Vaciado de relleno cementicio en unidades huecas con acero',family:'morteros'},
+ {pack:17,file:'vivienda-minimalista',name:'Vivienda minimalista con concreto visto',group:'Viviendas y sistemas modulares',app:'Prefabricados arquitectónicos',desc:'Concepto de vivienda contemporánea con elementos de concreto',family:'viviendas'},
+ {pack:17,file:'vivienda-montana',name:'Vivienda sostenible de montaña',group:'Viviendas y sistemas modulares',app:'Prefabricados arquitectónicos',desc:'Concepto de vivienda adaptable a entorno montañoso',family:'viviendas'},
+ {pack:17,file:'fachada-celosias',name:'Fachada tropical con celosías',group:'Viviendas y sistemas modulares',app:'Prefabricados arquitectónicos',desc:'Fachada ventilada de unidades arquitectónicas caladas',family:'viviendas'},
+ {pack:17,file:'cabana-montana',name:'Cabaña modular panorámica',group:'Viviendas y sistemas modulares',app:'Prefabricados arquitectónicos',desc:'Concepto de alojamiento modular para entorno natural',family:'viviendas'},
+ {pack:17,file:'comunidad-modular',name:'Conjunto de viviendas modulares',group:'Viviendas y sistemas modulares',app:'Prefabricados arquitectónicos',desc:'Conjunto residencial de unidades modulares repetibles',family:'viviendas'},
+ {pack:17,file:'muro-verde-modular',name:'Muro jardinera modular',group:'Viviendas y sistemas modulares',app:'Elementos de paisajismo',desc:'Muro modular de piezas vegetadas para espacios comunes',family:'viviendas'},
+ {pack:18,file:'cimientos-mamposteria',name:'Cimientos y mampostería en construcción',group:'Estructuras y obra civil',app:'Cimentaciones y zapatas',desc:'Construcción de cimientos y muros de bloques',family:'estructuras'},
+ {pack:18,file:'estructura-concreto',name:'Pórticos de concreto en construcción',group:'Estructuras y obra civil',app:'Pórticos, vigas y columnas',desc:'Estructura de columnas y vigas de concreto en obra',family:'estructuras'},
+ {pack:18,file:'losa-cimentacion',name:'Losa de cimentación',group:'Estructuras y obra civil',app:'Cimentaciones y zapatas',desc:'Preparación de una losa de concreto',family:'estructuras'},
+ {pack:18,file:'concreto-tuberias',name:'Concreto de protección de tuberías',group:'Estructuras y obra civil',app:'Obras de arte de drenaje',desc:'Vaciado de concreto en obra con conducción enterrada',family:'estructuras'},
+ {pack:18,file:'contencion-vial',name:'Muro de contención en carretera',group:'Estructuras y obra civil',app:'Muros de contención',desc:'Protección y sostenimiento de borde vial',family:'estructuras'},
+ {pack:18,file:'gaviones-arroyo',name:'Gaviones junto a un arroyo',group:'Drenajes y contención',app:'Gaviones',desc:'Protección de margen con cestas rellenas de piedra',family:'drenajes'},
+ {pack:18,file:'escollera-rio',name:'Escollera de roca natural',group:'Drenajes y contención',app:'Enrocados / escolleras',desc:'Protección de cauce mediante roca de gran tamaño',family:'drenajes'},
+ {pack:18,file:'dren-frances-vivienda',name:'Dren francés perimetral de vivienda',group:'Drenajes y contención',app:'Filtros franceses',desc:'Conducción y grava drenante junto a cimentación',family:'drenajes'},
+ {pack:18,file:'desague-urbano',name:'Sumidero urbano durante lluvia',group:'Drenajes y contención',app:'Cunetas y sumideros',desc:'Captación de aguas lluvias en vía urbana',family:'drenajes'},
+ {pack:18,file:'alcantarilla-concreto',name:'Alcantarilla de concreto en cauce',group:'Drenajes y contención',app:'Obras de arte de drenaje',desc:'Salida de conducción hidráulica protegida con rocas',family:'drenajes'}
+);
 const atlasPackNames={all:'Todos',9:'Bloques y ladrillos',10:'Mobiliario',11:'Drenajes',12:'Vías e infraestructura',13:'Morteros y acabados',14:'Viviendas y sistemas modulares',15:'Detalles constructivos',16:'Paisajismo y diseño'};
 let atlasSelectedPack='all';
 const atlasRoadmap = [
@@ -82,10 +104,11 @@ const atlasRoadmap = [
   {code:'10',name:'Mobiliario y espacio público',desc:'Bancas, bolardos, jardineras, bordillos, separadores y piezas ornamentales',state:'10 modelos incorporados'},
   {code:'11',name:'Drenaje y contención',desc:'Tubos, box culvert, filtros, canales, gaviones, escolleras y sumideros',state:'10 modelos incorporados'},
   {code:'12',name:'Vías e infraestructura',desc:'Pavimentos, vías de montaña, andenes, puentes, plataformas y bases',state:'10 modelos incorporados'},
-  {code:'13',name:'Morteros y acabados',desc:'Morteros, grout, repellos, pegantes, nivelaciones y concretos',state:'3 modelos recuperados · en ampliación'},
-  {code:'14',name:'Vivienda y sistemas modulares',desc:'Muros, paneles, fachadas, unidades y secuencias constructivas',state:'3 modelos recuperados · en ampliación'},
+  {code:'13',name:'Morteros y acabados',desc:'Morteros, grout, repellos, pegantes, nivelaciones y concretos',state:'7 variantes disponibles'},
+  {code:'14',name:'Vivienda y sistemas modulares',desc:'Muros, paneles, fachadas, unidades y secuencias constructivas',state:'9 variantes disponibles'},
   {code:'15',name:'Detalles constructivos',desc:'Cortes de carreteras, drenajes, mampostería, gaviones, granulometrías y prefabricados',state:'10 ilustraciones añadidas'},
-  {code:'16',name:'Paisajismo y diseño',desc:'Variantes de macetas, bancos, plazas, accesos y arquitectura verde',state:'10 modelos añadidos'}
+  {code:'16',name:'Paisajismo y diseño',desc:'Variantes de macetas, bancos, plazas, accesos y arquitectura verde',state:'10 variantes disponibles'},
+  {code:'18',name:'Estructuras y obra civil',desc:'Cimentaciones, losas, pórticos y muros de contención',state:'5 variantes nuevas'}
 ];
 let atlasOrigin = 'rio';
 let atlasSelectedMaterial = 't2';
@@ -98,7 +121,7 @@ const atlasDerived = {
   rcd: ['rs','mi','bs','bg','dr','co','mo']
 };
 function atlasModelPath(m){
- const names={9:'bloques',10:'mobiliario',11:'drenajes',12:'vias',13:'morteros',14:'viviendas',15:'detalles',16:'paisajismo'};
+ const names={9:'bloques',10:'mobiliario',11:'drenajes',12:'vias',13:'morteros',14:'viviendas',15:'detalles',16:'paisajismo',17:'acabados-viviendas',18:'estructuras-hidraulica'};
  const pack=m.pack||9;
  return 'imagenes/modelos/paquete-'+String(pack).padStart(2,'0')+'-'+names[pack]+'/'+m.file+'.jpg';
 }
@@ -140,16 +163,20 @@ window.setAtlasTreeMaterial=function(id){
   if(!materials.find(x=>x.id===id))return;
   atlasSelectedMaterial=id;renderAtlasTree();
 };
+const atlasFamilies={all:'Todos',bloques:'Bloques y ladrillos',mobiliario:'Mobiliario',drenajes:'Drenajes y contención',vias:'Vías e infraestructura',morteros:'Morteros y acabados',viviendas:'Viviendas y sistemas modulares',detalles:'Detalles constructivos',paisajismo:'Paisajismo y diseño',estructuras:'Estructuras y obra civil'};
+const atlasFamilyByPack={9:'bloques',10:'mobiliario',11:'drenajes',12:'vias',13:'morteros',14:'viviendas',15:'detalles',16:'paisajismo'};
+function atlasFamilyFor(m){return m.family||atlasFamilyByPack[m.pack]||'all';}
+let atlasSelectedFamily='all';
 function renderAtlasModels(){
   const area=byId('modelosGrid');
   if(!area)return;
   const tabs=byId('modelosFiltros');
-  if(tabs)tabs.innerHTML=Object.entries(atlasPackNames).map(([id,label])=>'<button type="button" class="'+(String(atlasSelectedPack)===id?'active':'')+'" aria-pressed="'+(String(atlasSelectedPack)===id)+'" onclick="filterAtlasModels(\''+id+'\')">'+(id==='all'?'Todos ('+atlasModels.length+')':label)+'</button>').join('');
-  const entries=atlasModels.map((m,i)=>({m,i})).filter(x=>atlasSelectedPack==='all'||String(x.m.pack)===String(atlasSelectedPack));
+  if(tabs)tabs.innerHTML=Object.entries(atlasFamilies).map(([id,label])=>'<button type="button" class="'+(atlasSelectedFamily===id?'active':'')+'" aria-pressed="'+(atlasSelectedFamily===id)+'" onclick="filterAtlasModels(\''+id+'\')">'+(id==='all'?'Todos ('+atlasModels.length+')':label)+'</button>').join('');
+  const entries=atlasModels.map((m,i)=>({m,i})).filter(x=>atlasSelectedFamily==='all'||atlasFamilyFor(x.m)===atlasSelectedFamily);
   area.innerHTML=entries.map(({m,i})=>'<button class="model-gallery-item" type="button" onclick="openAtlasModel('+i+')"><img src="'+atlasModelPath(m)+'" loading="lazy" alt="'+esc(m.name)+'"><strong>'+esc(m.name)+'</strong><small>'+esc(m.group)+'</small></button>').join('');
   const count=byId('modelosCount');if(count)count.textContent=entries.length+' modelos';
 }
-window.filterAtlasModels=function(pack){atlasSelectedPack=pack==='all'?'all':String(pack);renderAtlasModels();};
+window.filterAtlasModels=function(family){atlasSelectedFamily=atlasFamilies[family]?family:'all';renderAtlasModels();};
 function atlasModelsForApp(app){
   return atlasModels.map((m,i)=>({m,i})).filter(x=>x.m.app===app);
 }
