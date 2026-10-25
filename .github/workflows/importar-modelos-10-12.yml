@@ -1,0 +1,64 @@
+name: Importar paquetes 10 11 y 12
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/importar-modelos-10-12.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar y validar 30 imagenes de modelos
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/modelos/paquete-10-mobiliario imagenes/modelos/paquete-11-drenajes imagenes/modelos/paquete-12-vias
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p10-banca-urbana.jpg?v=1792891603' -o 'imagenes/modelos/paquete-10-mobiliario/banca-urbana.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p10-bolardo.jpg?v=1792891607' -o 'imagenes/modelos/paquete-10-mobiliario/bolardo.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p10-bordillo.jpg?v=1792891610' -o 'imagenes/modelos/paquete-10-mobiliario/bordillo.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p10-jardinera-lineal.jpg?v=1792891615' -o 'imagenes/modelos/paquete-10-mobiliario/jardinera-lineal.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p10-jardinera-cilindrica.jpg?v=1792891620' -o 'imagenes/modelos/paquete-10-mobiliario/jardinera-cilindrica.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p10-banca-jardinera.jpg?v=1792891624' -o 'imagenes/modelos/paquete-10-mobiliario/banca-jardinera.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p10-barrera-vial.jpg?v=1792891630' -o 'imagenes/modelos/paquete-10-mobiliario/barrera-vial.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p10-estacionamiento-tope.jpg?v=1792891634' -o 'imagenes/modelos/paquete-10-mobiliario/estacionamiento-tope.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p10-mesa-picnic.jpg?v=1792891639' -o 'imagenes/modelos/paquete-10-mobiliario/mesa-picnic.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p10-adoquin-modular.jpg?v=1792891644' -o 'imagenes/modelos/paquete-10-mobiliario/adoquin-modular.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p11-tubo-concreto.jpg?v=1792891663' -o 'imagenes/modelos/paquete-11-drenajes/tubo-concreto.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p11-box-culvert.jpg?v=1792891671' -o 'imagenes/modelos/paquete-11-drenajes/box-culvert.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p11-canal-prefabricado.jpg?v=1792891674' -o 'imagenes/modelos/paquete-11-drenajes/canal-prefabricado.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p11-cuneta-concreto.jpg?v=1792891680' -o 'imagenes/modelos/paquete-11-drenajes/cuneta-concreto.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p11-sumidero-modular.jpg?v=1792891686' -o 'imagenes/modelos/paquete-11-drenajes/sumidero-modular.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p11-canal-lineal.jpg?v=1792891691' -o 'imagenes/modelos/paquete-11-drenajes/canal-lineal.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p11-gabion-modular.jpg?v=1792891699' -o 'imagenes/modelos/paquete-11-drenajes/gabion-modular.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p11-proteccion-ribera.jpg?v=1792891705' -o 'imagenes/modelos/paquete-11-drenajes/proteccion-ribera.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p11-disipador-energia.jpg?v=1792891709' -o 'imagenes/modelos/paquete-11-drenajes/disipador-energia.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p11-dren-frances.jpg?v=1792891715' -o 'imagenes/modelos/paquete-11-drenajes/dren-frances.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p12-carretera-pavimento.jpg?v=1792891728' -o 'imagenes/modelos/paquete-12-vias/carretera-pavimento.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p12-via-rural.jpg?v=1792891734' -o 'imagenes/modelos/paquete-12-vias/via-rural.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p12-via-montana.jpg?v=1792891741' -o 'imagenes/modelos/paquete-12-vias/via-montana.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p12-anden-peatonal.jpg?v=1792891745' -o 'imagenes/modelos/paquete-12-vias/anden-peatonal.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p12-pavimento-permeable.jpg?v=1792891750' -o 'imagenes/modelos/paquete-12-vias/pavimento-permeable.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p12-puente-principal.jpg?v=1792891758' -o 'imagenes/modelos/paquete-12-vias/puente-principal.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p12-puente-rural.jpg?v=1792891766' -o 'imagenes/modelos/paquete-12-vias/puente-rural.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p12-base-terraplen.jpg?v=1792891771' -o 'imagenes/modelos/paquete-12-vias/base-terraplen.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p12-base-compactacion.jpg?v=1792891776' -o 'imagenes/modelos/paquete-12-vias/base-compactacion.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopiensa-p12-estabilizacion-talud.jpg?v=1792891780' -o 'imagenes/modelos/paquete-12-vias/estabilizacion-talud.jpg'
+          for grupo in 10-mobiliario 11-drenajes 12-vias; do
+            ruta="imagenes/modelos/paquete-$grupo"
+            test "$(find "$ruta" -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
+            for f in "$ruta"/*.jpg; do
+              file --mime-type "$f" | grep -Eq 'image/jpeg'
+              test "$(wc -c < "$f")" -gt 50000
+            done
+          done
+      - name: Incorporar al repositorio
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/modelos/paquete-10-mobiliario imagenes/modelos/paquete-11-drenajes imagenes/modelos/paquete-12-vias
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: integrar 30 modelos de mobiliario, drenajes e infraestructura"
+            git push origin HEAD:main
+          fi
