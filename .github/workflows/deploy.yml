@@ -55,7 +55,7 @@ jobs:
           if(files.length!==10)throw Error('Deben existir diez modelos; hay '+files.length);
           for(const n of files)if(!fs.existsSync('imagenes/modelos/paquete-09-bloques/'+n+'.jpg'))throw Error('Modelo sin imagen '+n);
           const catalog=h.slice(h.indexOf('const appPhotos={'),h.indexOf('function appVisual(a)'));
-          const apps=[...catalog.matchAll(/^'([^']+)':\\{file:'([^']+)'(?:,pack:(\\d+))?/gm)];
+          const apps=[...catalog.matchAll(/^'([^']+)':\{file:'([^']+)'(?:,pack:(\d+))?/gm)];
           if(apps.length!==51)throw Error('Esperadas 51 aplicaciones con imagen, hay '+apps.length);
           for(const [,label,file,pack] of apps){
             const path='imagenes/aplicaciones/paquete-'+String(pack||3).padStart(2,'0')+'/'+file+'.jpg';
