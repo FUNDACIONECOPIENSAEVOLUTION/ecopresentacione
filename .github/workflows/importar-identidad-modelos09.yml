@@ -1,0 +1,46 @@
+name: Importar organigrama e identidad y paquete 09
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/importar-identidad-modelos09.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Guardar imágenes y validar formato
+        run: |
+          set -euo pipefail
+          mkdir -p identidad imagenes/organigramas imagenes/modelos/paquete-09-bloques
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-logo-oficial-2026.png?v=1792889457' -o 'identidad/logo-fundacion-oficial.png'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-organigrama-base-2026.jpg?v=1792889461' -o 'imagenes/organigramas/organigrama-base-subproductos.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-ruta-paquetes-2026.jpg?v=1792889464' -o 'imagenes/organigramas/ruta-paquetes-modelos.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-pack09-bloque-muro.jpg?v=1792889482' -o 'imagenes/modelos/paquete-09-bloques/bloque-muro.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-pack09-celosia-01.jpg?v=1792889487' -o 'imagenes/modelos/paquete-09-bloques/celosia-01.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-pack09-celosia-02.jpg?v=1792889491' -o 'imagenes/modelos/paquete-09-bloques/celosia-02.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-pack09-tierra-comprimida.jpg?v=1792889495' -o 'imagenes/modelos/paquete-09-bloques/tierra-comprimida.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-pack09-encajable.jpg?v=1792889499' -o 'imagenes/modelos/paquete-09-bloques/encajable.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-pack09-bloque-grande.jpg?v=1792889503' -o 'imagenes/modelos/paquete-09-bloques/bloque-grande.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-pack09-fabricacion-bloques.jpg?v=1792889509' -o 'imagenes/modelos/paquete-09-bloques/fabricacion-bloques.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-pack09-ladrillos-bloques.jpg?v=1792889513' -o 'imagenes/modelos/paquete-09-bloques/ladrillos-bloques.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-pack09-fabricacion-02.jpg?v=1792889525' -o 'imagenes/modelos/paquete-09-bloques/fabricacion-02.jpg'
+          curl --fail --location --silent --show-error --retry 5 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopresentacione-pack09-vivienda-ceb.jpg?v=1792889529' -o 'imagenes/modelos/paquete-09-bloques/vivienda-ceb.jpg'
+          for f in identidad/*.png imagenes/organigramas/*.jpg imagenes/modelos/paquete-09-bloques/*.jpg; do
+            file "$f"
+            file --mime-type "$f" | grep -Eq 'image/(png|jpeg)'
+            test "$(wc -c < "$f")" -gt 10000
+          done
+          test "$(find imagenes/modelos/paquete-09-bloques -name '*.jpg' | wc -l)" -eq 10
+          test -s identidad/logo-fundacion-oficial.png
+      - name: Incorporar archivos a main
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add identidad/ imagenes/organigramas/ imagenes/modelos/paquete-09-bloques/
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: identidad oficial, organigrama y 10 modelos de bloques"
+            git push origin HEAD:main
+          fi
