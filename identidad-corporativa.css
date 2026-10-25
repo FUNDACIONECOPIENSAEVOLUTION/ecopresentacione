@@ -87,3 +87,48 @@ section{scroll-margin-top:26px}
 .models-grid .model-gallery-item strong{font-size:12px;line-height:1.32}
 .models-grid .model-gallery-item small{margin-top:auto}
 @media(max-width:760px){.model-tabs{gap:7px}.model-tabs button{font-size:11px;padding:9px 11px}}
+
+/* Atlas 1.16.0 · cinco imágenes del proceso de transformación */
+#ruta .process-with-images{gap:14px;align-items:stretch;margin-top:8px}
+#ruta .process-with-images .process-step{
+  padding:0;min-height:0;display:flex;flex-direction:column;
+  background:#fff;border:1px solid #d4e7d8;border-top:3px solid #35b26b;
+  box-shadow:0 4px 18px #15442b0b
+}
+#ruta .process-with-images .process-image-link{
+  display:block;width:100%;aspect-ratio:4/3;overflow:hidden;
+  border-radius:15px 15px 0 0;background:#ebf3ec;
+  border-bottom:1px solid #d9e8dc
+}
+#ruta .process-with-images .process-image-link img{
+  width:100%;height:100%;object-fit:contain;display:block;
+  transition:transform .22s ease
+}
+#ruta .process-with-images .process-image-link:hover img{transform:scale(1.035)}
+#ruta .process-with-images .process-image-link:focus-visible{outline:3px solid #d18a42;outline-offset:3px}
+#ruta .process-with-images .process-card-copy{padding:15px 15px 18px;flex:1}
+#ruta .process-with-images .process-step h3{font-size:17px;line-height:1.2;margin:9px 0 7px}
+#ruta .process-with-images .process-step p{font-size:12px;line-height:1.55}
+#ruta .process-with-images .process-step:not(:last-child)::after{
+  right:-19px;top:43%;font-size:26px;color:#15884e;
+  text-shadow:0 1px white
+}
+@media(max-width:1150px){
+ #ruta .process-with-images{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+ #ruta .process-with-images .process-step::after{display:none!important}
+}
+@media(max-width:760px){
+ #ruta .process-with-images{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+ #ruta .process-with-images .process-card-copy{padding:14px}
+}
+@media(max-width:530px){
+ #ruta .process-with-images{grid-template-columns:1fr;gap:27px}
+ #ruta .process-with-images .process-step:not(:last-child)::after{
+  display:block!important;content:"↓";position:absolute;
+  top:auto;right:auto;left:calc(50% - 10px);bottom:-28px;
+  background:#f4f9f5;font-size:22px;line-height:1.1
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ #ruta .process-with-images .process-image-link img{transition:none}
+}
