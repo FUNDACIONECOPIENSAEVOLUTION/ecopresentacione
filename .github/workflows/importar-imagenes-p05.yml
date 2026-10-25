@@ -1,0 +1,42 @@
+name: Importar diez fotos de aplicaciones paquete 05
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/importar-imagenes-p05.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Descargar, verificar y contar diez imágenes
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/aplicaciones/paquete-05
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack05-ladrillos-no-cocidos.jpg?v=1792886813' -o 'imagenes/aplicaciones/paquete-05/ladrillos-no-cocidos.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack05-bloques-encajables-ecologicos.jpg?v=1792886750' -o 'imagenes/aplicaciones/paquete-05/bloques-encajables-ecologicos.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack05-mortero-pega.jpg?v=1792886753' -o 'imagenes/aplicaciones/paquete-05/mortero-pega.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack05-repellos-panetes.jpg?v=1792886784' -o 'imagenes/aplicaciones/paquete-05/repellos-panetes.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack05-morteros-nivelacion.jpg?v=1792886758' -o 'imagenes/aplicaciones/paquete-05/morteros-nivelacion.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack05-pegantes-cementicios.jpg?v=1792886819' -o 'imagenes/aplicaciones/paquete-05/pegantes-cementicios.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack05-adoquines.jpg?v=1792886788' -o 'imagenes/aplicaciones/paquete-05/adoquines.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack05-losetas-baldosones.jpg?v=1792886765' -o 'imagenes/aplicaciones/paquete-05/losetas-baldosones.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack05-bordillos-sardineles.jpg?v=1792886769' -o 'imagenes/aplicaciones/paquete-05/bordillos-sardineles.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack05-bancas-urbanas.jpg?v=1792886773' -o 'imagenes/aplicaciones/paquete-05/bancas-urbanas.jpg'
+          for f in imagenes/aplicaciones/paquete-05/*.jpg; do
+            file "$f"
+            file --mime-type "$f" | grep -Eq 'image/jpeg'
+            test "$(wc -c < "$f")" -gt 10000
+          done
+          test "$(find imagenes/aplicaciones/paquete-05 -name '*.jpg' | wc -l)" -eq 10
+      - name: Registrar imágenes en rama principal
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/aplicaciones/paquete-05/
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: paquete 05 diez fotos reales reutilizables"
+            git push origin HEAD:main
+          fi
