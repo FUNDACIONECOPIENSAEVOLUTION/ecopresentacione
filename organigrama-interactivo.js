@@ -1,4 +1,4 @@
-/* Atlas Ecopiensa · mapa base → derivado → aplicación y modelos (v1.12.0) */
+/* Atlas Ecopiensa · mapa base → derivado → aplicación y modelos (v1.13.0) */
 'use strict';
 const atlasModels = [
   {file:'bloque-muro',name:'Bloque de muro',group:'Bloques de cemento',app:'Bloques huecos de cemento',desc:'Unidad de concreto para pared'},
@@ -45,15 +45,23 @@ atlasModels.push(
   {pack:12,file:'base-compactacion',name:'Compactación de base granular',group:'Vías',app:'Bases de carreteras',desc:'Preparación de capas de apoyo vial'},
   {pack:12,file:'estabilizacion-talud',name:'Estabilización de talud vial',group:'Vías',app:'Estabilización de taludes',desc:'Terrazas y protección de ladera vial'}
 );
-const atlasPackNames={all:'Todos',9:'Bloques y ladrillos',10:'Mobiliario',11:'Drenajes',12:'Vías e infraestructura'};
+atlasModels.push(
+ {pack:13,file:'grout-mamposteria',name:'Relleno de celdas con grout',group:'Morteros y acabados',app:'Muros de mampostería reforzada',desc:'Relleno cementicio de celdas de mampostería con acero de refuerzo'},
+ {pack:13,file:'estuco-pared',name:'Acabado de estuco y pañete',group:'Morteros y acabados',app:'Repellos y pañetes',desc:'Aplicación y alisado de revestimiento de muro'},
+ {pack:13,file:'adhesivo-baldosas',name:'Adhesivo para revestimiento cerámico',group:'Morteros y acabados',app:'Pegantes cementicios',desc:'Aplicación de mortero adhesivo y colocación de baldosas'},
+ {pack:14,file:'casa-sostenible',name:'Vivienda sostenible contemporánea',group:'Viviendas y sistemas modulares',app:'Prefabricados arquitectónicos',desc:'Propuesta arquitectónica de vivienda sostenible para desarrollar soluciones constructivas'},
+ {pack:14,file:'fachada-celosias',name:'Fachada con celosías decorativas',group:'Viviendas y sistemas modulares',app:'Prefabricados arquitectónicos',desc:'Fachada y elementos de ventilación formados por piezas modulares'},
+ {pack:14,file:'cabana-modular',name:'Cabaña modular en entorno natural',group:'Viviendas y sistemas modulares',app:'Prefabricados arquitectónicos',desc:'Concepto de vivienda modular en un entorno rural'}
+);
+const atlasPackNames={all:'Todos',9:'Bloques y ladrillos',10:'Mobiliario',11:'Drenajes',12:'Vías e infraestructura',13:'Morteros y acabados',14:'Viviendas y sistemas modulares'};
 let atlasSelectedPack='all';
 const atlasRoadmap = [
   {code:'09',name:'Bloques y ladrillos',desc:'Bloques huecos, encajables, unidades no cocidas, celosías y fabricación',state:'10 modelos incorporados'},
   {code:'10',name:'Mobiliario y espacio público',desc:'Bancas, bolardos, jardineras, bordillos, separadores y piezas ornamentales',state:'10 modelos incorporados'},
   {code:'11',name:'Drenaje y contención',desc:'Tubos, box culvert, filtros, canales, gaviones, escolleras y sumideros',state:'10 modelos incorporados'},
   {code:'12',name:'Vías e infraestructura',desc:'Pavimentos, vías de montaña, andenes, puentes, plataformas y bases',state:'10 modelos incorporados'},
-  {code:'13',name:'Morteros y acabados',desc:'Morteros, grout, repellos, pegantes, nivelaciones y concretos',state:'Por ampliar'},
-  {code:'14',name:'Vivienda y sistemas modulares',desc:'Muros, paneles, fachadas, unidades y secuencias constructivas',state:'Por ampliar'}
+  {code:'13',name:'Morteros y acabados',desc:'Morteros, grout, repellos, pegantes, nivelaciones y concretos',state:'3 modelos recuperados · en ampliación'},
+  {code:'14',name:'Vivienda y sistemas modulares',desc:'Muros, paneles, fachadas, unidades y secuencias constructivas',state:'3 modelos recuperados · en ampliación'}
 ];
 let atlasOrigin = 'rio';
 let atlasSelectedMaterial = 't2';
@@ -66,7 +74,7 @@ const atlasDerived = {
   rcd: ['rs','mi','bs','bg','dr','co','mo']
 };
 function atlasModelPath(m){
- const names={9:'bloques',10:'mobiliario',11:'drenajes',12:'vias'};
+ const names={9:'bloques',10:'mobiliario',11:'drenajes',12:'vias',13:'morteros',14:'viviendas'};
  const pack=m.pack||9;
  return 'imagenes/modelos/paquete-'+String(pack).padStart(2,'0')+'-'+names[pack]+'/'+m.file+'.jpg';
 }
