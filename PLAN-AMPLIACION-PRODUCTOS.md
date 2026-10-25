@@ -1,6 +1,6 @@
 # Plan de ampliación visual y portafolio Ecopiensa Evolution
 
-**Estado de sitio:** v1.9.0 · 24/oct/2026
+**Estado de sitio:** v1.12.0 · 24/oct/2026
 
 ## Organización conceptual de la cadena
 
@@ -17,7 +17,7 @@
 - 20 materiales con imagen individual.
 - 51 aplicaciones con imagen individual.
 - 8 diseños de macetas con LED.
-- **Paquete 09:** 10 imágenes de bloques y ladrillos incorporadas.
+- **Paquetes 09–12:** 40 modelos disponibles en galería filtrable (10 por paquete), con variantes enlazadas a las aplicaciones.
 - Organigrama original visible en página + mapa interactivo con flechas y filtros por fuente.
 - Logotipo oficial aportado por el usuario en `identidad/logo-fundacion-oficial.png`.
 
@@ -25,9 +25,9 @@
 
 | Paquete | Familia | Variantes visuales previstas | Estado |
 |---|---|---|---|
-| 10 | Mobiliario urbano | bancas, macetas, bolardos, separadores, bordillos, adoquines, jardineras combinadas | Pendiente |
-| 11 | Drenajes y contención | tubos, box culvert, canales, filtros, cunetas, gaviones, escolleras | Pendiente |
-| 12 | Vías e infraestructura | concretos, mezclas asfálticas, adoquines, losetas, ciclos, bordillos, pavimentos permeables | Pendiente |
+| 10 | Mobiliario urbano | bancas, macetas, bolardos, separadores, bordillos, adoquines, jardineras combinadas | **Completado: 10 modelos** |
+| 11 | Drenajes y contención | tubos, box culvert, canales, filtros, cunetas, gaviones, escolleras | **Completado: 10 modelos** |
+| 12 | Vías e infraestructura | vías, aceras, puentes, terraplenes, bases, pavimentos y taludes | **Completado: 10 modelos** |
 | 13 | Morteros y acabados | grouts, morteros de pega, repellos, nivelaciones, pegantes, baldosas y texturas | Pendiente |
 | 14 | Viviendas y sistemas modulares | paneles, muros, bloques, fachadas, techos y ejemplos de ensamble | Pendiente |
 | 15 | Diagramas y fichas comparativas | cortes constructivos, granulometrías, escala de tamaño, mezclas y derivación de procesos | Pendiente |
@@ -41,3 +41,11 @@
 - No identificar como fabricados o certificados por Ecopiensa los modelos que son fotografías de referencia de terceros.
 - No mostrar en las fichas emergentes los rótulos «Estado técnico» o «Crédito visual»; mantener las aclaraciones esenciales y atribuciones de manera discreta al final y en la documentación técnica.
 - Mantener numeración incremental de versión de la web para cambios visibles.
+
+### Registro de entregas (24/oct/2026)
+
+- **Pack 10:** `imagenes/modelos/paquete-10-mobiliario/`, 10 JPEG verificados en GitHub.
+- **Pack 11:** `imagenes/modelos/paquete-11-drenajes/`, 10 JPEG verificados en GitHub.
+- **Pack 12:** `imagenes/modelos/paquete-12-vias/`, 10 JPEG verificados en GitHub.
+- **Página:** versión 1.12.0, filtros por paquete y galerías relacionadas dentro de las fichas de aplicación.
+- **Siguiente ampliación:** paquete 13 de morteros y acabados, seguido por viviendas y fichas de cortes. Al completar los modelos se elaborará el PDF institucional secuencial.
