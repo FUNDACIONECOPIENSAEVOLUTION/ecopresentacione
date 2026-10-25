@@ -52,6 +52,8 @@ jobs:
           test "$(find imagenes/modelos/paquete-14-viviendas -maxdepth 1 -name '*.jpg' | wc -l)" -eq 3
           test "$(find imagenes/modelos/paquete-15-detalles -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
           test "$(find imagenes/modelos/paquete-16-paisajismo -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
+          test "$(find imagenes/modelos/paquete-17-acabados-viviendas -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
+          test "$(find imagenes/modelos/paquete-18-estructuras-hidraulica -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
           test -s galeria-completa.html
           test "$(find imagenes/disenos/macetas-led -maxdepth 1 -name '*.jpg' | wc -l)" -eq 12
           node - <<'NODE'
@@ -61,10 +63,10 @@ jobs:
           for(const q of ['id="organigrama"','id="treeRoot"','id="treeProducts"','id="treeUses"','id="modelosGrid"','id="modelosFiltros"','id="roadmapGrid"'])if(!h.includes(q))throw Error('Elemento faltante '+q);
           const first=script.slice(script.indexOf('const atlasModels = ['),script.indexOf('];\natlasModels.forEach'));
           const initial=[...first.matchAll(/file:'([^']+)'/g)].map(x=>x[1]);
-          const additions=[...script.matchAll(/\{pack:(10|11|12|13|14|15|16),file:'([^']+)'/g)].map(x=>({pack:Number(x[1]),file:x[2]}));
-          if(initial.length!==10 || additions.length!==56)throw Error('Modelos esperados 66: iniciales '+initial.length+', extras '+additions.length);
+          const additions=[...script.matchAll(/\{pack:(10|11|12|13|14|15|16|17|18),file:'([^']+)'/g)].map(x=>({pack:Number(x[1]),file:x[2]}));
+          if(initial.length!==10 || additions.length!==76)throw Error('Modelos esperados 86: iniciales '+initial.length+', extras '+additions.length);
           for(const file of initial)if(!fs.existsSync('imagenes/modelos/paquete-09-bloques/'+file+'.jpg'))throw Error('Bloque sin imagen '+file);
-          const dir={10:'mobiliario',11:'drenajes',12:'vias',13:'morteros',14:'viviendas',15:'detalles',16:'paisajismo'};
+          const dir={10:'mobiliario',11:'drenajes',12:'vias',13:'morteros',14:'viviendas',15:'detalles',16:'paisajismo',17:'acabados-viviendas',18:'estructuras-hidraulica'};
           for(const m of additions){
             const path='imagenes/modelos/paquete-'+m.pack+'-'+dir[m.pack]+'/'+m.file+'.jpg';
             if(!fs.existsSync(path))throw Error('Modelo sin imagen: '+path);
@@ -93,9 +95,9 @@ jobs:
           const invMatch=gallery.match(/const inventory=(\[[\s\S]*?\]);\nconst groups=/);
           if(!invMatch)throw Error('Inventario de galería inexistente');
           const inventory=JSON.parse(invMatch[1]);
-          if(inventory.length!==149 || new Set(inventory.map(x=>x.path)).size!==149)throw Error('Inventario de imágenes incompleto');
+          if(inventory.length!==169 || new Set(inventory.map(x=>x.path)).size!==169)throw Error('Inventario de imágenes incompleto');
           for(const item of inventory){if(!fs.existsSync(item.path)||fs.statSync(item.path).size<10000)throw Error('Imagen faltante o vacía '+item.path);}
-          console.log('OK: 20 materiales, 51 aplicaciones, 66 modelos, 12 LED y 149 imágenes catalogadas');
+          console.log('OK: 20 materiales, 51 aplicaciones, 86 modelos, 12 LED y 169 imágenes catalogadas');
           NODE
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
