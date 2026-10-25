@@ -53,7 +53,29 @@ atlasModels.push(
  {pack:14,file:'fachada-celosias',name:'Fachada con celosías decorativas',group:'Viviendas y sistemas modulares',app:'Prefabricados arquitectónicos',desc:'Fachada y elementos de ventilación formados por piezas modulares'},
  {pack:14,file:'cabana-modular',name:'Cabaña modular en entorno natural',group:'Viviendas y sistemas modulares',app:'Prefabricados arquitectónicos',desc:'Concepto de vivienda modular en un entorno rural'}
 );
-const atlasPackNames={all:'Todos',9:'Bloques y ladrillos',10:'Mobiliario',11:'Drenajes',12:'Vías e infraestructura',13:'Morteros y acabados',14:'Viviendas y sistemas modulares'};
+atlasModels.push(
+ {pack:15,file:'pavimento-permeable',name:'Pavimento permeable · sección de drenaje',group:'Detalles constructivos',app:'Pavimentos permeables',desc:'Sección visual de capas y circulación de agua'},
+ {pack:15,file:'dren-frances-corte',name:'Dren francés · corte transversal',group:'Detalles constructivos',app:'Filtros franceses',desc:'Geotextil, agregado drenante y tubería perforada'},
+ {pack:15,file:'muro-mamposteria-corte',name:'Muro reforzado · sección',group:'Detalles constructivos',app:'Muros de mampostería reforzada',desc:'Bloques huecos, acero y relleno de celdas'},
+ {pack:15,file:'box-culvert-corte',name:'Box culvert · sección hidráulica',group:'Detalles constructivos',app:'Box culvert',desc:'Cajón de concreto y capas de apoyo'},
+ {pack:15,file:'gaviones-corte',name:'Gaviones · sección de talud',group:'Detalles constructivos',app:'Gaviones',desc:'Malla metálica, roca drenante y relleno de trasdós'},
+ {pack:15,file:'granulometria-guia',name:'Guía visual de tamaños de agregados',group:'Detalles constructivos',app:'Bases de carreteras',desc:'Fracciones granulares representativas, sin escala granulométrica certificada'},
+ {pack:15,file:'carretera-corte',name:'Carretera · capas de pavimento',group:'Detalles constructivos',app:'Bases de carreteras',desc:'Rodadura, base, subbase y subrasante'},
+ {pack:15,file:'drenaje-pluvial',name:'Sumidero urbano · corte',group:'Detalles constructivos',app:'Cunetas y sumideros',desc:'Captación y evacuación de agua superficial'},
+ {pack:15,file:'fachada-celosias-corte',name:'Fachada modular · detalle de celosías',group:'Detalles constructivos',app:'Prefabricados arquitectónicos',desc:'Elementos de fijación, ventilación y piezas modulares'},
+ {pack:15,file:'jardinera-banca-corte',name:'Jardinera y banca iluminada · sección',group:'Detalles constructivos',app:'Macetas y jardineras',desc:'Iluminación, drenaje, sustrato y base nivelable'},
+ {pack:16,file:'patio-nocturno',name:'Patio iluminado con macetas',group:'Paisajismo y diseño',app:'Macetas y jardineras',desc:'Conjunto de macetas y jardineras con iluminación cálida'},
+ {pack:16,file:'plaza-bolardos',name:'Plaza con bolardos y topes',group:'Paisajismo y diseño',app:'Bolardos y topes',desc:'Solución urbana de delimitación de espacios'},
+ {pack:16,file:'jardineras-terraza',name:'Jardineras de terraza',group:'Paisajismo y diseño',app:'Macetas y jardineras',desc:'Conjunto modular de jardineras al aire libre'},
+ {pack:16,file:'jardineras-geometricas',name:'Jardineras geométricas',group:'Paisajismo y diseño',app:'Macetas y jardineras',desc:'Diseños contemporáneos de geometría facetada'},
+ {pack:16,file:'escalera-concreto',name:'Escalera de concreto',group:'Paisajismo y diseño',app:'Escaleras prefabricadas',desc:'Referencia arquitectónica de escalera de concreto; método constructivo por definir'},
+ {pack:16,file:'macetas-luminosas',name:'Terraza con macetas iluminadas',group:'Paisajismo y diseño',app:'Macetas y jardineras',desc:'Macetas con iluminación ambiental perimetral'},
+ {pack:16,file:'acceso-paisajismo',name:'Acceso peatonal ajardinado',group:'Paisajismo y diseño',app:'Elementos de paisajismo',desc:'Composición de espacios verdes y prefabricados decorativos'},
+ {pack:16,file:'patio-modular',name:'Patio modular ajardinado',group:'Paisajismo y diseño',app:'Elementos de paisajismo',desc:'Acabados, bordes y jardineras integradas'},
+ {pack:16,file:'elementos-arquitectonicos',name:'Prefabricados arquitectónicos decorativos',group:'Paisajismo y diseño',app:'Prefabricados arquitectónicos',desc:'Elementos arquitectónicos y celosías de concreto'},
+ {pack:16,file:'plaza-jardinera-banca',name:'Plaza con jardinera y banca',group:'Paisajismo y diseño',app:'Bancas urbanas',desc:'Banca y jardineras con iluminación integrada'}
+);
+const atlasPackNames={all:'Todos',9:'Bloques y ladrillos',10:'Mobiliario',11:'Drenajes',12:'Vías e infraestructura',13:'Morteros y acabados',14:'Viviendas y sistemas modulares',15:'Detalles constructivos',16:'Paisajismo y diseño'};
 let atlasSelectedPack='all';
 const atlasRoadmap = [
   {code:'09',name:'Bloques y ladrillos',desc:'Bloques huecos, encajables, unidades no cocidas, celosías y fabricación',state:'10 modelos incorporados'},
@@ -61,7 +83,9 @@ const atlasRoadmap = [
   {code:'11',name:'Drenaje y contención',desc:'Tubos, box culvert, filtros, canales, gaviones, escolleras y sumideros',state:'10 modelos incorporados'},
   {code:'12',name:'Vías e infraestructura',desc:'Pavimentos, vías de montaña, andenes, puentes, plataformas y bases',state:'10 modelos incorporados'},
   {code:'13',name:'Morteros y acabados',desc:'Morteros, grout, repellos, pegantes, nivelaciones y concretos',state:'3 modelos recuperados · en ampliación'},
-  {code:'14',name:'Vivienda y sistemas modulares',desc:'Muros, paneles, fachadas, unidades y secuencias constructivas',state:'3 modelos recuperados · en ampliación'}
+  {code:'14',name:'Vivienda y sistemas modulares',desc:'Muros, paneles, fachadas, unidades y secuencias constructivas',state:'3 modelos recuperados · en ampliación'},
+  {code:'15',name:'Detalles constructivos',desc:'Cortes de carreteras, drenajes, mampostería, gaviones, granulometrías y prefabricados',state:'10 ilustraciones añadidas'},
+  {code:'16',name:'Paisajismo y diseño',desc:'Variantes de macetas, bancos, plazas, accesos y arquitectura verde',state:'10 modelos añadidos'}
 ];
 let atlasOrigin = 'rio';
 let atlasSelectedMaterial = 't2';
@@ -74,7 +98,7 @@ const atlasDerived = {
   rcd: ['rs','mi','bs','bg','dr','co','mo']
 };
 function atlasModelPath(m){
- const names={9:'bloques',10:'mobiliario',11:'drenajes',12:'vias',13:'morteros',14:'viviendas'};
+ const names={9:'bloques',10:'mobiliario',11:'drenajes',12:'vias',13:'morteros',14:'viviendas',15:'detalles',16:'paisajismo'};
  const pack=m.pack||9;
  return 'imagenes/modelos/paquete-'+String(pack).padStart(2,'0')+'-'+names[pack]+'/'+m.file+'.jpg';
 }
@@ -120,9 +144,9 @@ function renderAtlasModels(){
   const area=byId('modelosGrid');
   if(!area)return;
   const tabs=byId('modelosFiltros');
-  if(tabs)tabs.innerHTML=Object.entries(atlasPackNames).map(([id,label])=>'<button type="button" class="'+(String(atlasSelectedPack)===id?'active':'')+'" aria-pressed="'+(String(atlasSelectedPack)===id)+'" onclick="filterAtlasModels(\''+id+'\')">'+(id==='all'?'Todos ('+atlasModels.length+')':'Paquete '+String(id).padStart(2,'0')+' · '+label)+'</button>').join('');
+  if(tabs)tabs.innerHTML=Object.entries(atlasPackNames).map(([id,label])=>'<button type="button" class="'+(String(atlasSelectedPack)===id?'active':'')+'" aria-pressed="'+(String(atlasSelectedPack)===id)+'" onclick="filterAtlasModels(\''+id+'\')">'+(id==='all'?'Todos ('+atlasModels.length+')':label)+'</button>').join('');
   const entries=atlasModels.map((m,i)=>({m,i})).filter(x=>atlasSelectedPack==='all'||String(x.m.pack)===String(atlasSelectedPack));
-  area.innerHTML=entries.map(({m,i})=>'<button class="model-gallery-item" type="button" onclick="openAtlasModel('+i+')"><img src="'+atlasModelPath(m)+'" loading="lazy" alt="'+esc(m.name)+'"><strong>'+esc(m.name)+'</strong><small>Paquete '+String(m.pack).padStart(2,'0')+' · '+esc(m.group)+'</small></button>').join('');
+  area.innerHTML=entries.map(({m,i})=>'<button class="model-gallery-item" type="button" onclick="openAtlasModel('+i+')"><img src="'+atlasModelPath(m)+'" loading="lazy" alt="'+esc(m.name)+'"><strong>'+esc(m.name)+'</strong><small>'+esc(m.group)+'</small></button>').join('');
   const count=byId('modelosCount');if(count)count.textContent=entries.length+' modelos';
 }
 window.filterAtlasModels=function(pack){atlasSelectedPack=pack==='all'?'all':String(pack);renderAtlasModels();};
@@ -165,7 +189,7 @@ window.openApp=function(id){
   }else{paintAtlasModelChoices(other);}
 };
 function renderAtlasPlan(){
-  byId('roadmapGrid').innerHTML=atlasRoadmap.map(r=>'<article class="roadmap-card"><span class="roadmap-index">PAQUETE '+r.code+'</span><h3>'+r.name+'</h3><p>'+r.desc+'</p><div class="roadmap-count">'+r.state+'</div></article>').join('');
+  byId('roadmapGrid').innerHTML=atlasRoadmap.map(r=>'<article class="roadmap-card"><span class="roadmap-index">COLECCIÓN · '+r.code+'</span><h3>'+r.name+'</h3><p>'+r.desc+'</p><div class="roadmap-count">'+r.state+'</div></article>').join('');
 }
 if(document.getElementById('treeRoot')){
   renderAtlasTree();
