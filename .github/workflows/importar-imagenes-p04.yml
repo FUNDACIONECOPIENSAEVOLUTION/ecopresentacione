@@ -1,0 +1,42 @@
+name: Importar diez fotografias del paquete 04
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/importar-imagenes-p04.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  importar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Importación y verificación de imágenes
+        run: |
+          set -euo pipefail
+          mkdir -p imagenes/aplicaciones/paquete-04
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack04-subbases-carreteras.jpg?v=1792886334' -o 'imagenes/aplicaciones/paquete-04/subbases-carreteras.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack04-bases-carreteras.jpg?v=1792886338' -o 'imagenes/aplicaciones/paquete-04/bases-carreteras.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack04-afirmado-rural.jpg?v=1792886422' -o 'imagenes/aplicaciones/paquete-04/afirmado-rural.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack04-ciclorrutas.jpg?v=1792886370' -o 'imagenes/aplicaciones/paquete-04/ciclorrutas.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack04-parqueaderos.jpg?v=1792886344' -o 'imagenes/aplicaciones/paquete-04/parqueaderos.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack04-cimentaciones-zapatas.jpg?v=1792886373' -o 'imagenes/aplicaciones/paquete-04/cimentaciones-zapatas.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack04-placas-entrepiso.jpg?v=1792886349' -o 'imagenes/aplicaciones/paquete-04/placas-entrepiso.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack04-contrapisos-soleras.jpg?v=1792886377' -o 'imagenes/aplicaciones/paquete-04/contrapisos-soleras.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack04-mamposteria-reforzada.jpg?v=1792886355' -o 'imagenes/aplicaciones/paquete-04/mamposteria-reforzada.jpg'
+          curl --fail --location --silent --show-error --retry 4 'https://cdn.shopify.com/s/files/1/0710/7159/6628/files/ecopack04-bloques-huecos-cemento.jpg?v=1792886389' -o 'imagenes/aplicaciones/paquete-04/bloques-huecos-cemento.jpg'
+          for f in imagenes/aplicaciones/paquete-04/*.jpg; do
+            file "$f"
+            file --mime-type "$f" | grep -Eq 'image/jpeg'
+            test "$(wc -c < "$f")" -gt 10000
+          done
+          test "$(find imagenes/aplicaciones/paquete-04 -name '*.jpg' | wc -l)" -eq 10
+      - name: Guardar en el repositorio público
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add imagenes/aplicaciones/paquete-04/
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: añadir diez imágenes reales paquete 04"
+            git push origin HEAD:main
+          fi
