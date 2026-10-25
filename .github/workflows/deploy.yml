@@ -55,6 +55,7 @@ jobs:
           test "$(find imagenes/modelos/paquete-17-acabados-viviendas -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
           test "$(find imagenes/modelos/paquete-18-estructuras-hidraulica -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
           test -s galeria-completa.html
+          test "$(find imagenes/procesos-transformacion -maxdepth 1 -name '*.jpg' | wc -l)" -eq 5
           test "$(find imagenes/disenos/macetas-led -maxdepth 1 -name '*.jpg' | wc -l)" -eq 12
           node - <<'NODE'
           const fs=require('fs');
@@ -91,13 +92,20 @@ jobs:
             const filename='imagenes/materiales/paquete-'+(firstPack.has(id)?'01':'02')+'/'+id+'.jpg';
             if(!fs.existsSync(filename))throw Error('Falta foto de material '+filename);
           }
+          const phases=['fase-01-origen','fase-02-preclasificacion','fase-03-trituracion','fase-04-lavado-zarandeo','fase-05-productos-obras'];
+          const section=h.slice(h.indexOf('<section id="ruta">'),h.indexOf('<section id="materiales">'));
+          for(const slug of phases){
+            const path='imagenes/procesos-transformacion/'+slug+'.jpg';
+            if(!fs.existsSync(path)||fs.statSync(path).size<100000)throw Error('Imagen de fase faltante '+path);
+            if(!section.includes('src="'+path+'"'))throw Error('Imagen no vinculada a fase '+slug);
+          }
           const gallery=fs.readFileSync('galeria-completa.html','utf8');
           const invMatch=gallery.match(/const inventory=(\[[\s\S]*?\]);\nconst groups=/);
           if(!invMatch)throw Error('Inventario de galería inexistente');
           const inventory=JSON.parse(invMatch[1]);
-          if(inventory.length!==169 || new Set(inventory.map(x=>x.path)).size!==169)throw Error('Inventario de imágenes incompleto');
+          if(inventory.length!==174 || new Set(inventory.map(x=>x.path)).size!==174)throw Error('Inventario de imágenes incompleto');
           for(const item of inventory){if(!fs.existsSync(item.path)||fs.statSync(item.path).size<10000)throw Error('Imagen faltante o vacía '+item.path);}
-          console.log('OK: 20 materiales, 51 aplicaciones, 86 modelos, 12 LED y 169 imágenes catalogadas');
+          console.log('OK: 5 imágenes de proceso, 20 materiales, 51 aplicaciones, 86 modelos, 12 LED y 174 imágenes catalogadas');
           NODE
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
