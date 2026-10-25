@@ -13,3 +13,13 @@ Cuatro fotografías *sintéticas* de distintas líneas de macetas decorativas en
 **Desarrollo técnico pendiente:** validar impermeabilización, drenaje, sellado de luminarias, tensiones seguras y grado IP para exterior; especificar fuentes de alimentación, mantenimiento y aislamiento de instalaciones húmedas; crear prototipo físico y ensayos de resistencia de piezas antes de venderlas.
 
 Los diseños no suponen fabricación efectiva por la fundación ni demuestran un sistema LED funcional certificado.
+
+## Ampliación de diseños para la colección
+
+Se añadieron cuatro propuestas de diseño, para un total de ocho imágenes:
+- `led-terraza-lineal.jpg`: jardineras de terraza con franjas luminosas.
+- `led-cilindros-terraza.jpg`: colección de macetas circulares iluminadas.
+- `led-banca-jardin.jpg`: jardinera combinada con asiento iluminado.
+- `led-macetas-geometricas.jpg`: macetas de formas geométricas con luces integradas.
+
+Son conceptos visuales adicionales generados con IA, no fotografías de producción real. La identidad oficial se aplica en las tarjetas por superposición del logotipo del repositorio.
