@@ -48,6 +48,9 @@ jobs:
           for grupo in 09-bloques 10-mobiliario 11-drenajes 12-vias; do
             test "$(find "imagenes/modelos/paquete-$grupo" -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
           done
+          test "$(find imagenes/modelos/paquete-13-morteros -maxdepth 1 -name '*.jpg' | wc -l)" -eq 3
+          test "$(find imagenes/modelos/paquete-14-viviendas -maxdepth 1 -name '*.jpg' | wc -l)" -eq 3
+          test "$(find imagenes/disenos/macetas-led -maxdepth 1 -name '*.jpg' | wc -l)" -eq 12
           node - <<'NODE'
           const fs=require('fs');
           const h=fs.readFileSync('index.html','utf8');
@@ -55,10 +58,10 @@ jobs:
           for(const q of ['id="organigrama"','id="treeRoot"','id="treeProducts"','id="treeUses"','id="modelosGrid"','id="modelosFiltros"','id="roadmapGrid"'])if(!h.includes(q))throw Error('Elemento faltante '+q);
           const first=script.slice(script.indexOf('const atlasModels = ['),script.indexOf('];\natlasModels.forEach'));
           const initial=[...first.matchAll(/file:'([^']+)'/g)].map(x=>x[1]);
-          const additions=[...script.matchAll(/\{pack:(10|11|12),file:'([^']+)'/g)].map(x=>({pack:Number(x[1]),file:x[2]}));
-          if(initial.length!==10 || additions.length!==30)throw Error('Modelos esperados 40: iniciales '+initial.length+', extras '+additions.length);
+          const additions=[...script.matchAll(/\{pack:(10|11|12|13|14),file:'([^']+)'/g)].map(x=>({pack:Number(x[1]),file:x[2]}));
+          if(initial.length!==10 || additions.length!==36)throw Error('Modelos esperados 46: iniciales '+initial.length+', extras '+additions.length);
           for(const file of initial)if(!fs.existsSync('imagenes/modelos/paquete-09-bloques/'+file+'.jpg'))throw Error('Bloque sin imagen '+file);
-          const dir={10:'mobiliario',11:'drenajes',12:'vias'};
+          const dir={10:'mobiliario',11:'drenajes',12:'vias',13:'morteros',14:'viviendas'};
           for(const m of additions){
             const path='imagenes/modelos/paquete-'+m.pack+'-'+dir[m.pack]+'/'+m.file+'.jpg';
             if(!fs.existsSync(path))throw Error('Modelo sin imagen: '+path);
@@ -70,7 +73,20 @@ jobs:
             const path='imagenes/aplicaciones/paquete-'+String(pack||3).padStart(2,'0')+'/'+file+'.jpg';
             if(!fs.existsSync(path))throw Error(label+': '+path);
           }
-          console.log('OK: 51 aplicaciones con imagen, 40 modelos, identidad y organigrama');
+
+          const led=h.slice(h.indexOf('const ledDesigns=['),h.indexOf('function renderLedDesigns()'));
+          const ledNames=[...led.matchAll(/file:'([^']+)'/g)].map(m=>m[1]);
+          if(ledNames.length!==12||new Set(ledNames).size!==12)throw Error('Faltan diseños LED');
+          for(const file of ledNames)if(!fs.existsSync('imagenes/disenos/macetas-led/'+file+'.jpg'))throw Error('LED faltante '+file);
+          const mats=h.slice(h.indexOf('const materials=['),h.indexOf('const defs=['));
+          const names=[...mats.matchAll(/\{id:'([^']+)'/g)].map(m=>m[1]);
+          if(names.length!==20)throw Error('No hay 20 materiales');
+          const firstPack=new Set(['t1','t2','t3','t4','an','ag','af','pl','mi','bs']);
+          for(const id of names){
+            const filename='imagenes/materiales/paquete-'+(firstPack.has(id)?'01':'02')+'/'+id+'.jpg';
+            if(!fs.existsSync(filename))throw Error('Falta foto de material '+filename);
+          }
+          console.log('OK: 20 materiales, 51 aplicaciones, 46 modelos, 12 LED, identidad y organigrama');
           NODE
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
