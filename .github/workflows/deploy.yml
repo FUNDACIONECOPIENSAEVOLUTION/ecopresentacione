@@ -45,15 +45,24 @@ jobs:
           test -s identidad/logo-fundacion-oficial.png
           test -s imagenes/organigramas/organigrama-base-subproductos.jpg
           test -s imagenes/organigramas/ruta-paquetes-modelos.jpg
-          test "$(find imagenes/modelos/paquete-09-bloques -name '*.jpg' | wc -l)" -eq 10
+          for grupo in 09-bloques 10-mobiliario 11-drenajes 12-vias; do
+            test "$(find "imagenes/modelos/paquete-$grupo" -maxdepth 1 -name '*.jpg' | wc -l)" -eq 10
+          done
           node - <<'NODE'
           const fs=require('fs');
           const h=fs.readFileSync('index.html','utf8');
           const script=fs.readFileSync('organigrama-interactivo.js','utf8');
-          for(const q of ['id="organigrama"','id="treeRoot"','id="treeProducts"','id="treeUses"','id="modelosGrid"','id="roadmapGrid"'])if(!h.includes(q))throw Error('Elemento faltante '+q);
-          const files=[...new Set([...script.matchAll(/file:'([^']+)'/g)].map(m=>m[1]))];
-          if(files.length!==10)throw Error('Deben existir diez modelos; hay '+files.length);
-          for(const n of files)if(!fs.existsSync('imagenes/modelos/paquete-09-bloques/'+n+'.jpg'))throw Error('Modelo sin imagen '+n);
+          for(const q of ['id="organigrama"','id="treeRoot"','id="treeProducts"','id="treeUses"','id="modelosGrid"','id="modelosFiltros"','id="roadmapGrid"'])if(!h.includes(q))throw Error('Elemento faltante '+q);
+          const first=script.slice(script.indexOf('const atlasModels = ['),script.indexOf('];\nconst atlasRoadmap'));
+          const initial=[...first.matchAll(/file:'([^']+)'/g)].map(x=>x[1]);
+          const additions=[...script.matchAll(/\{pack:(10|11|12),file:'([^']+)'/g)].map(x=>({pack:Number(x[1]),file:x[2]}));
+          if(initial.length!==10 || additions.length!==30)throw Error('Modelos esperados 40: iniciales '+initial.length+', extras '+additions.length);
+          for(const file of initial)if(!fs.existsSync('imagenes/modelos/paquete-09-bloques/'+file+'.jpg'))throw Error('Bloque sin imagen '+file);
+          const dir={10:'mobiliario',11:'drenajes',12:'vias'};
+          for(const m of additions){
+            const path='imagenes/modelos/paquete-'+m.pack+'-'+dir[m.pack]+'/'+m.file+'.jpg';
+            if(!fs.existsSync(path))throw Error('Modelo sin imagen: '+path);
+          }
           const catalog=h.slice(h.indexOf('const appPhotos={'),h.indexOf('function appVisual(a)'));
           const apps=[...catalog.matchAll(/^'([^']+)':\{file:'([^']+)'(?:,pack:(\d+))?/gm)];
           if(apps.length!==51)throw Error('Esperadas 51 aplicaciones con imagen, hay '+apps.length);
@@ -61,7 +70,7 @@ jobs:
             const path='imagenes/aplicaciones/paquete-'+String(pack||3).padStart(2,'0')+'/'+file+'.jpg';
             if(!fs.existsSync(path))throw Error(label+': '+path);
           }
-          console.log('OK: 51 aplicaciones con imagen, diez modelos, identidad y organigrama');
+          console.log('OK: 51 aplicaciones con imagen, 40 modelos, identidad y organigrama');
           NODE
       - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
