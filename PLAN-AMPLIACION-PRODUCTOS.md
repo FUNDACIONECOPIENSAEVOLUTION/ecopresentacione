@@ -1,6 +1,6 @@
 # Plan de ampliación visual y portafolio Ecopiensa Evolution
 
-**Estado de sitio:** v1.14.0 · 24/oct/2026
+**Estado de sitio:** v1.15.0 · 24/oct/2026
 
 ## Organización conceptual de la cadena
 
@@ -71,3 +71,11 @@
 - **Modelos ampliados**: 66 en total, incluidos los diez diagramas de detalles.
 - **Estado de publicación**: verificado automáticamente por GitHub Actions, que comprueba el catálogo antes de desplegar.
 - **Siguiente etapa**: ampliar modelos por familias y validar las ilustraciones técnicas; el PDF institucional se construirá después de esa revisión.
+
+### Ampliación visual — Versión 1.15.0 (24/oct/2026)
+
+- **Acabados y viviendas:** 10 modelos específicos añadidos en `imagenes/modelos/paquete-17-acabados-viviendas/`, vinculados a pañetes, nivelaciones, pegantes, grout, viviendas y módulos.
+- **Estructuras e hidráulica:** 10 modelos añadidos en `imagenes/modelos/paquete-18-estructuras-hidraulica/`, vinculados a cimentaciones, pórticos, muros de contención, gaviones, escolleras, drenajes y alcantarillas.
+- **Galería de la web:** 169 imágenes catalogadas y 86 modelos y variantes, filtrables por familia de producto, sin numeración de paquetes en las pestañas.
+- **Auditoría:** el flujo de despliegue revisa presencia y tamaño de las imágenes y su relación con el inventario antes de publicar.
+- **Pendiente editorial:** validar técnicas, seleccionar modelos finales y construir el PDF institucional cuando las familias de productos estén aprobadas.
